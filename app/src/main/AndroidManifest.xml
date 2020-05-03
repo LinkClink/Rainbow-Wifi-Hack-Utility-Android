@@ -12,6 +12,7 @@
         <activity android:name=".test"></activity>
         <activity
             android:name=".MainActivity"
+            android:theme="@style/SplashScreen"
             android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Log fragment -->
+    <dimen name="dimenTextViewHeight0">100dp</dimen>
+
+    <!-- Wifi list fragment  -->
+    <dimen name="dimenListViewHeight">400dp</dimen>
+    <dimen name="dimenListViewWeight">225dp</dimen>
+
+</resources>

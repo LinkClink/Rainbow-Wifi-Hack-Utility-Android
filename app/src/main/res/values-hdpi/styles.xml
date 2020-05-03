@@ -12,8 +12,8 @@
 
     <!-- Fragment style -->
     <style name="FragmentsTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:layout_margin">3dp</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:textSize">9sp</item>
         <item name="fontFamily">@font/delius_unicase</item>
     </style>
 

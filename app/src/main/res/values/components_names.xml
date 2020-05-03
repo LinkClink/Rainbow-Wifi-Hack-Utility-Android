@@ -20,6 +20,13 @@
     <string name="On">On</string>
     <string name="Off">Off</string>
 
+    <!-- Stop-Cancel fragment -->
+    <string name="Stop">Stop</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Start">Start:</string>
 
+    <!-- Brute fragment -->
+    <string name="BruteAll">Brute All</string>
+    <string name="Brute">Brute</string>
 
 </resources>

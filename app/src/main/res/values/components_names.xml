@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Log fragment -->
+    <string name="CurrentWifi">Current Wifi</string>
+    <string name="LogCat">LogCat:</string>
+    <string name="GodResults">God Results:</string>
+
+    <!-- Wifi list fragment -->
+    <string name="WifiList">Wifi List</string>
+    <string name="Refresh">Refresh</string>
+
+    <!-- Password list -->
+    <string name="PasswordList">Password List:</string>
+    <string name="Add">Add</string>
+    <string name="Reset">Reset</string>
+
+    <!--Wifi on-off -->
+    <string name="WifiSetting">Wifi:</string>
+    <string name="On">On</string>
+    <string name="Off">Off</string>
+
+
+
+</resources>

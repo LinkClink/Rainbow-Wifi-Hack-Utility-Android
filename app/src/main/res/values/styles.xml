@@ -27,6 +27,11 @@
         <item name="android:background">@color/buttonBackground1</item>
     </style>
 
+    <!-- Button custom 2 -->
+    <style name="ButtonTheme2" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">@color/buttonBackground2</item>
+    </style>
+
     <style name="SplashScreen" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>

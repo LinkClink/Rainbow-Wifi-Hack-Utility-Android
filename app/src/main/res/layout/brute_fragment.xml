@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_background_fragment"
     android:orientation="vertical"
     android:theme="@style/FragmentsTheme"
-    android:background="@drawable/shape_background_fragment"
     tools:context="BruteFragment.BruteFragment">
 
     <TextView
@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/button14"
-            style="@style/ButtonTheme1"
+            style="@style/ButtonTheme2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -29,10 +29,10 @@
 
         <Button
             android:id="@+id/button13"
+            style="@style/ButtonTheme2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/ButtonTheme1"
             android:text="@string/Brute" />
 
     </LinearLayout>

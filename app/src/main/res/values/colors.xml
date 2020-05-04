@@ -9,6 +9,7 @@
     <!-- -->
     <color name="buttonBackground">#0091CA</color>
     <color name="buttonBackground1">#60C7EF</color>
+    <color name="buttonBackground2">#FFE600</color>
 
     <color name="textColor0">#000000</color>
 

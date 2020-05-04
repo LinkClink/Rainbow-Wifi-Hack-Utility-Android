@@ -1,6 +1,5 @@
 package BruteFragment;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,7 @@ import com.linkclink.gfr.R;
 
 public class BruteFragment extends Fragment {
 
+
     public static BruteFragment newInstance() {
         return new BruteFragment();
     }
@@ -24,5 +24,4 @@ public class BruteFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.brute_fragment, container, false);
     }
-
 }

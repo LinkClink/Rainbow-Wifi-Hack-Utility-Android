@@ -1,7 +1,6 @@
 package WifiListFragment;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.linkclink.gfr.MainActivity;
 import com.linkclink.gfr.R;
 
 public class WifiListFragment extends Fragment {
@@ -36,7 +34,6 @@ public class WifiListFragment extends Fragment {
     private ViewGroup container;
 
     private WifiManager wifiManager;
-
     private WifiReceiver wifiReceiver;
 
 
@@ -47,14 +44,14 @@ public class WifiListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        CheckWifiEnabled();
-        CheckPermissions();
-
         this.inflater = inflater;
         this.container = container;
 
+        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        /* Check wifi enabled */
+        CheckWifiEnabled();
+        /* Components Initialisation */
         InitialisationComponents();
 
         btRefresh.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +61,7 @@ public class WifiListFragment extends Fragment {
             }
         });
 
+        /* First Scan */
         wifiManager.startScan();
 
         return view;
@@ -81,7 +79,6 @@ public class WifiListFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -92,28 +89,25 @@ public class WifiListFragment extends Fragment {
         //getWifi();
     }
 
-    protected void CheckWifiEnabled() {
-        if (!wifiManager.isWifiEnabled())
-        {
-            ShowToast.showToast(getContext(), "Turn wifi: ON");
+    private void CheckWifiEnabled() {
+        if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
-        }else ShowToast.showToast(getContext(),"Permissions not granted!!!");
+        }
+        if (!wifiManager.isWifiEnabled())
+            ShowToast.showToast(getContext(), "Permissions not granted!!!");
     }
 
 
-    protected void InitialisationComponents() {
+    private void InitialisationComponents() {
         view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
-
         btRefresh = (Button) view.findViewById(R.id.button_refresh);
         lwWifiList = (ListView) view.findViewById(R.id.listview_wifi_list);
     }
 
-    protected void Refresh() {
+    private void Refresh() {
+        lwWifiList.setAdapter(null);
+        wifiManager.startScan();
 
-        ShowToast.showToast(getContext(), "Work ");
+        ShowToast.showToast(getContext(), "Refresh");
     }
-
-
-
-
 }

@@ -33,6 +33,7 @@ public class WifiOnOffFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         this.container = container;
         this.inflater = inflater;
 
@@ -41,6 +42,7 @@ public class WifiOnOffFragment extends Fragment {
         /* Init Components */
         InitialisationComponents();
 
+        /* Buttons click realisation */
         button_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,14 +68,12 @@ public class WifiOnOffFragment extends Fragment {
     private void WifiOn() {
         if (!wifiManager.isWifiEnabled())
             wifiManager.setWifiEnabled(true);
-        else ShowToast.showToast(getContext(),"Already wifi enabled");
+        else ShowToast.showToast(getContext(), "Already wifi enabled");
     }
 
     private void WifiOff() {
         if (wifiManager.isWifiEnabled())
             wifiManager.setWifiEnabled(false);
-        else ShowToast.showToast(getContext(),"Already wifi disabled");
+        else ShowToast.showToast(getContext(), "Already wifi disabled");
     }
-
-
 }

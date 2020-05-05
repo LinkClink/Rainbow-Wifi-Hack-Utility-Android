@@ -1,6 +1,7 @@
 package WifiListFragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -25,6 +26,8 @@ import com.linkclink.gfr.R;
 public class WifiListFragment extends Fragment {
 
     private static final int MY_PERMISSIONS_ACCESS_COARSE_LOCATION = 1;
+    private static final int MY_PERMISSIONS_ACCESS_WIFI_STATE = 1;
+
     private View view;
 
     private Button btRefresh;
@@ -51,6 +54,7 @@ public class WifiListFragment extends Fragment {
 
         /* Check wifi enabled */
         CheckWifiEnabled();
+        //CheckPermissions();
         /* Components Initialisation */
         InitialisationComponents();
 
@@ -74,8 +78,14 @@ public class WifiListFragment extends Fragment {
     }
 
     public void CheckPermissions() {
+
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_ACCESS_COARSE_LOCATION);
+        }
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CHANGE_WIFI_STATE) != PackageManager.PERMISSION_GRANTED)
+        {
+            ShowToast.showToast(getContext(),"Test");
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CHANGE_WIFI_STATE}, MY_PERMISSIONS_ACCESS_WIFI_STATE);
         }
     }
 
@@ -93,10 +103,7 @@ public class WifiListFragment extends Fragment {
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
-        if (!wifiManager.isWifiEnabled())
-            ShowToast.showToast(getContext(), "Permissions not granted!!!");
     }
-
 
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
@@ -107,7 +114,6 @@ public class WifiListFragment extends Fragment {
     private void Refresh() {
         lwWifiList.setAdapter(null);
         wifiManager.startScan();
-
         ShowToast.showToast(getContext(), "Refresh");
     }
 }

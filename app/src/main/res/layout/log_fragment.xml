@@ -34,7 +34,7 @@
         android:text="@string/LogCat" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_logCat"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimenTextViewHeight0"
         android:background="@drawable/shape_textview_background_0" />

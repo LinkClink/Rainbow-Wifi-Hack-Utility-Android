@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView_wifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/WifiSetting" />
@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/button_wifi_on"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -26,12 +26,12 @@
             android:text="@string/On" />
 
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/button_wifi_off"
+            style="@style/ButtonTheme1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/ButtonTheme1"
             android:layout_weight="1"
-            android:text="off" />
+            android:text="@string/Off" />
     </LinearLayout>
 
 </LinearLayout>

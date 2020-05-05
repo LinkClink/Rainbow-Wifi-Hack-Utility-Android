@@ -9,7 +9,7 @@
     tools:context="BruteFragment.BruteFragment">
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView_brute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Brute" />
@@ -20,7 +20,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button14"
+            android:id="@+id/button_bruteAll"
             style="@style/ButtonTheme2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:text="@string/BruteAll" />
 
         <Button
-            android:id="@+id/button13"
+            android:id="@+id/button_brute"
             style="@style/ButtonTheme2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

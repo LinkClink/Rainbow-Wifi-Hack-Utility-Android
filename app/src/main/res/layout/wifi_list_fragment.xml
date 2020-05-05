@@ -17,9 +17,9 @@
     <ListView
         android:id="@+id/listview_wifi_list"
         android:layout_width="@dimen/dimenListViewWeight"
-        android:layout_height="@dimen/dimenListViewHeight">
-
-    </ListView>
+        android:layout_height="@dimen/dimenListViewHeight"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/selector_listview_0"/>
 
     <Button
         android:id="@+id/button_refresh"

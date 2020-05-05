@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:layout_margin">0dp</item>
-        <item name="android:textColor">@color/textColor0</item>
+        <item name="android:textColor">@color/colorText0</item>
     </style>
 
     <!-- Fragment style -->
@@ -19,17 +19,22 @@
 
     <!-- Button custom 0 -->
     <style name="ButtonTheme0" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:background">@color/buttonBackground</item>
+        <item name="android:background">@color/colorButtonBackground</item>
     </style>
 
     <!-- Button custom 1 -->
     <style name="ButtonTheme1" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:background">@color/buttonBackground1</item>
+        <item name="android:background">@color/colorButtonBackground1</item>
     </style>
 
     <!-- Button custom 2 -->
     <style name="ButtonTheme2" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:background">@color/buttonBackground2</item>
+        <item name="android:background">@color/colorButtonBackground2</item>
+    </style>
+
+    <!-- Button custom 3 -->
+    <style name="ButtonTheme3" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">@color/colorButtonBackground3</item>
     </style>
 
 </resources>

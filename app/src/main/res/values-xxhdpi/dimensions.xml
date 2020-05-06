@@ -2,7 +2,8 @@
 <resources>
 
     <!-- Log fragment -->
-    <dimen name="dimenTextViewHeight0">100dp</dimen>
+    <dimen name="dimenTextViewHeight0">450dp</dimen>
+    <dimen name="dimenTextViewHeight1">150dp</dimen>
 
     <!-- Wifi list fragment  -->
     <dimen name="dimenListViewHeight">400dp</dimen>

@@ -46,9 +46,9 @@
         android:text="@string/GodResults" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView_GodResults"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimenTextViewHeight0"
+        android:layout_height="@dimen/dimenTextViewHeight1"
         android:background="@drawable/shape_textview_background_0" />
 
 </LinearLayout>

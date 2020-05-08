@@ -23,5 +23,4 @@ public class StopCancelFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.stop_cancel_fragment, container, false);
     }
-
 }

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class LogFragment extends Fragment {
 
     private TextView textViewLogCat;
     private TextView textViewGodResults;
+    private TextView textViewCurrentWifi;
 
     private LayoutInflater inflater;
     private ViewGroup container;
@@ -38,7 +40,7 @@ public class LogFragment extends Fragment {
         this.container = container;
         InitialisationComponents();
 
-        /* Set log results */
+        /* Set log results to TextView */
         getParentFragmentManager().setFragmentResultListener("log", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
@@ -53,6 +55,16 @@ public class LogFragment extends Fragment {
                 SetLogGod(result.getString("logGod"));
             }
         });
+        getParentFragmentManager().setFragmentResultListener("currentBruteWifi", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                SetCurrentWifi(result.getString("currentBruteWifi"));
+            }
+        });
+
+        textViewLogCat.setMovementMethod( new ScrollingMovementMethod());
+        textViewGodResults.setMovementMethod( new ScrollingMovementMethod());
+
 
         return view;
     }
@@ -61,6 +73,7 @@ public class LogFragment extends Fragment {
         view = inflater.inflate(R.layout.log_fragment, container, false);
         textViewLogCat = (TextView) view.findViewById(R.id.textView_logCat);
         textViewGodResults = (TextView) view.findViewById(R.id.textView_GodResults);
+        textViewCurrentWifi = (TextView) view.findViewById(R.id.textView_currentWifi);
     }
 
     private void SetLog(String logText) {
@@ -71,4 +84,8 @@ public class LogFragment extends Fragment {
         textViewGodResults.append(godLogText + "\n");
     }
 
+    private void SetCurrentWifi(String currentWifi)
+    {
+        textViewCurrentWifi.setText(currentWifi);
+    }
 }

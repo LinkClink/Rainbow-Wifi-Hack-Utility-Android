@@ -1,16 +1,12 @@
 package WifiListFragment;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import logic.ShowToast;
 import logic.WifiReceiver;
@@ -18,15 +14,15 @@ import logic.WifiReceiver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.linkclink.gfr.R;
 
-public class WifiListFragment extends Fragment {
+import java.lang.reflect.Method;
 
-    private static final int MY_PERMISSIONS_ACCESS_COARSE_LOCATION = 1;
-    private static final int MY_PERMISSIONS_ACCESS_WIFI_STATE = 1;
+public class WifiListFragment extends Fragment {
 
     private View view;
 
@@ -39,6 +35,9 @@ public class WifiListFragment extends Fragment {
     private WifiManager wifiManager;
     private WifiReceiver wifiReceiver;
 
+    private String currentWifiSelected;
+
+    private Bundle bundle;
 
     public static WifiListFragment newInstance() {
         return new WifiListFragment();
@@ -49,24 +48,33 @@ public class WifiListFragment extends Fragment {
 
         this.inflater = inflater;
         this.container = container;
-
+        InitialisationComponents();
         wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         /* Check wifi enabled */
         CheckWifiEnabled();
-        //CheckPermissions();
-        /* Components Initialisation */
-        InitialisationComponents();
+        /* Check HotSpot enabled */
+        if (CheckHotSpotEnabled())
+            ShowToast.showToast(getContext(), "Please disable HotSpot:");
+        /* First Scan */
+        wifiManager.startScan();
 
         btRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Refresh();
+                if (CheckHotSpotEnabled())
+                    ShowToast.showToast(getContext(), "Please disable HotSpot:");
+                else Refresh();
             }
         });
 
-        /* First Scan */
-        wifiManager.startScan();
+        lwWifiList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                currentWifiSelected = (String) lwWifiList.getItemAtPosition(i);
+                SetCurrentWifiBrute(currentWifiSelected);
+            }
+        });
 
         return view;
     }
@@ -74,19 +82,7 @@ public class WifiListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(wifiReceiver);
-    }
-
-    public void CheckPermissions() {
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_ACCESS_COARSE_LOCATION);
-        }
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CHANGE_WIFI_STATE) != PackageManager.PERMISSION_GRANTED)
-        {
-            ShowToast.showToast(getContext(),"Test");
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CHANGE_WIFI_STATE}, MY_PERMISSIONS_ACCESS_WIFI_STATE);
-        }
+        requireActivity().unregisterReceiver(wifiReceiver); /* getActivity().unregisterReceiver(wifiReceiver); */
     }
 
     @Override
@@ -96,9 +92,9 @@ public class WifiListFragment extends Fragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         getActivity().registerReceiver(wifiReceiver, intentFilter);
-        //getWifi();
     }
 
+    /* Do not use */
     private void CheckWifiEnabled() {
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
@@ -111,9 +107,29 @@ public class WifiListFragment extends Fragment {
         lwWifiList = (ListView) view.findViewById(R.id.listview_wifi_list);
     }
 
+    /* Refresh wifi list */
     private void Refresh() {
         lwWifiList.setAdapter(null);
         wifiManager.startScan();
-        ShowToast.showToast(getContext(), "Refresh");
+        ShowToast.showToast(getContext(), "Refresh:");
+    }
+
+    /* Set actually wifi brute */
+    private void SetCurrentWifiBrute(String wifi) {
+        ShowToast.showToast(getContext(), "Set current wifi:" + wifi);
+        bundle = new Bundle();
+        bundle.putString("selectedWifi", wifi);
+        getParentFragmentManager().setFragmentResult("selectedWifi", bundle);
+    }
+
+    /* Check HotSpot enabled */
+    private boolean CheckHotSpotEnabled() {
+        try {
+            Method method = wifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
+            method.setAccessible(true);
+            return (Boolean) method.invoke(wifiManager);
+        } catch (Throwable ignored) {
+        }
+        return false;
     }
 }

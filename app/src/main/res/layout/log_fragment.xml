@@ -15,20 +15,20 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView_logF0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/CurrentWifi" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView_currentWifi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_textview_background_0" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView_logF1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/LogCat" />
@@ -37,10 +37,11 @@
         android:id="@+id/textView_logCat"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimenTextViewHeight0"
-        android:background="@drawable/shape_textview_background_0" />
+        android:background="@drawable/shape_textview_background_0"
+        android:scrollbars="vertical" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_logF2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/GodResults" />

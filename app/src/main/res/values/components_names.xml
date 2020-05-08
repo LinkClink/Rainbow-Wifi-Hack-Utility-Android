@@ -28,5 +28,6 @@
     <!-- Brute fragment -->
     <string name="BruteAll">Brute All</string>
     <string name="Brute">Brute</string>
+    <string name="Brute0">Brute:</string>
 
 </resources>

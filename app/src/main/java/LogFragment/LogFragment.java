@@ -11,6 +11,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.linkclink.gfr.R;
@@ -24,6 +25,8 @@ public class LogFragment extends Fragment {
     private TextView textViewLogCat;
     private TextView textViewGodResults;
     private TextView textViewCurrentWifi;
+
+    private Button btReset;
 
     private LayoutInflater inflater;
     private ViewGroup container;
@@ -62,9 +65,12 @@ public class LogFragment extends Fragment {
             }
         });
 
-        textViewLogCat.setMovementMethod( new ScrollingMovementMethod());
-        textViewGodResults.setMovementMethod( new ScrollingMovementMethod());
-
+        btReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ResetLog();
+            }
+        });
 
         return view;
     }
@@ -74,6 +80,11 @@ public class LogFragment extends Fragment {
         textViewLogCat = (TextView) view.findViewById(R.id.textView_logCat);
         textViewGodResults = (TextView) view.findViewById(R.id.textView_GodResults);
         textViewCurrentWifi = (TextView) view.findViewById(R.id.textView_currentWifi);
+        btReset = (Button) view.findViewById(R.id.button_reset_log);
+    }
+
+    private void ResetLog() {
+        textViewLogCat.setText("");
     }
 
     private void SetLog(String logText) {
@@ -84,8 +95,7 @@ public class LogFragment extends Fragment {
         textViewGodResults.append(godLogText + "\n");
     }
 
-    private void SetCurrentWifi(String currentWifi)
-    {
+    private void SetCurrentWifi(String currentWifi) {
         textViewCurrentWifi.setText(currentWifi);
     }
 }

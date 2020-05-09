@@ -12,8 +12,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         AccessToPermissions accessToPermissions = new AccessToPermissions();
         accessToPermissions.CheckPermissions(getApplicationContext());
+        */
     }
 
 }

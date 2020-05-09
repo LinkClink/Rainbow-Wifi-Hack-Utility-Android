@@ -52,4 +52,11 @@
         android:layout_height="@dimen/dimenTextViewHeight1"
         android:background="@drawable/shape_textview_background_0" />
 
+    <Button
+        android:id="@+id/button_reset_log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/ResetLog" />
+
 </LinearLayout>

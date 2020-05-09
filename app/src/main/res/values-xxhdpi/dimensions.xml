@@ -6,7 +6,7 @@
     <dimen name="dimenTextViewHeight1">150dp</dimen>
 
     <!-- Wifi list fragment  -->
-    <dimen name="dimenListViewHeight">400dp</dimen>
+    <dimen name="dimenListViewHeight">350dp</dimen>
     <dimen name="dimenListViewWeight">225dp</dimen>
 
 </resources>

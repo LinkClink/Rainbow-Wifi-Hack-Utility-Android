@@ -7,7 +7,7 @@
     <string name="GodResults">God Results:</string>
 
     <!-- Wifi list fragment -->
-    <string name="WifiList">Wifi List</string>
+    <string name="WifiList">Wifi List:</string>
     <string name="Refresh">Refresh</string>
 
     <!-- Password list -->

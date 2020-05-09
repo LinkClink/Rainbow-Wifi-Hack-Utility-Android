@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/FragmentsTheme"
     android:background="@drawable/shape_background_fragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/FragmentsTheme">
 
     <TextView
         android:id="@+id/textView_wifi"
@@ -19,10 +19,10 @@
 
         <Button
             android:id="@+id/button_wifi_on"
+            style="@style/ButtonTheme1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/ButtonTheme1"
             android:text="@string/On" />
 
         <Button
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/Off" />
+
     </LinearLayout>
 
 </LinearLayout>

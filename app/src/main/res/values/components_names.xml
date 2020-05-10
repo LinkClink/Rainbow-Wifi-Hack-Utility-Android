@@ -5,9 +5,10 @@
     <string name="CurrentWifi">Current Wifi</string>
     <string name="LogCat">LogCat:</string>
     <string name="GodResults">God Results:</string>
+    <string name="ResetLog">Reset</string>
 
     <!-- Wifi list fragment -->
-    <string name="WifiList">Wifi List</string>
+    <string name="WifiList">Wifi List:</string>
     <string name="Refresh">Refresh</string>
 
     <!-- Password list -->
@@ -20,6 +21,14 @@
     <string name="On">On</string>
     <string name="Off">Off</string>
 
+    <!-- Stop-Cancel fragment -->
+    <string name="Stop">Stop</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Start">Start:</string>
 
+    <!-- Brute fragment -->
+    <string name="BruteAll">Brute All</string>
+    <string name="Brute">Brute</string>
+    <string name="Brute0">Brute:</string>
 
 </resources>

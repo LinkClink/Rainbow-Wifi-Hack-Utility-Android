@@ -7,7 +7,21 @@
     <color name="colorAccent">#03DAC5</color>
 
     <!-- -->
-    <color name="buttonBackground">#0091CA</color>
-    <color name="buttonBackground1">#60C7EF</color>
+    <color name="colorButtonBackground">#0091CA</color>
+    <color name="colorButtonBackground1">#60C7EF</color>
+    <color name="colorButtonBackground2">#FFE600</color>
+    <color name="colorButtonBackground3">#F43E31</color>
+
+
+    <color name="colorText0">#000000</color>
+
+    <color name="colorSplashScreenBackGround">#FFFFFF</color>
+
+    <!-- ListView selector -->
+    <color name="colorListViewSelected">#E8FF00</color>
+    <color name="colorListViewPressed">#195AFF</color>
+    <color name="colorListViewActivated">#12AC18</color>
+
+
 
 </resources>

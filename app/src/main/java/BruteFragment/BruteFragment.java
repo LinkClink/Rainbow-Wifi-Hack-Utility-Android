@@ -52,6 +52,7 @@ public class BruteFragment extends Fragment {
 
     private int flagStartBrute = 0;
     private int flagErrorBrute = 0;
+    private int flagBreakBrute = 0;
 
     private List<String> passwordList = new ArrayList<String>();
     private List<String> passwordUriList = new ArrayList<String>();
@@ -89,11 +90,17 @@ public class BruteFragment extends Fragment {
                 try {
                     OpenTxt();
                 } catch (IOException e) {
-                    ShowToast.showToast(getContext(),"Error " + e.getMessage());
+                    ShowToast.showToast(getContext(), "Error " + e.getMessage());
                 }
             }
         });
 
+        getParentFragmentManager().setFragmentResultListener("stopCurrentProcess", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                flagBreakBrute = 1;
+            }
+        });
         return view;
     }
 
@@ -104,6 +111,7 @@ public class BruteFragment extends Fragment {
     }
 
     private void BruteMain() {
+        flagBreakBrute = 0;
         /* Check HotSpot enabled and disable */
         if (!CheckHotSpotEnabled()) {
             /* Check wifi enabled */
@@ -124,7 +132,6 @@ public class BruteFragment extends Fragment {
 
     /* Test */
     private void Brute() {
-
         GetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID);
         GetLogCurrentWifi(currentBruteWifiSSID);
 
@@ -156,18 +163,16 @@ public class BruteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-
-                if (CheckSuccessConnect(passwordList.get(i))) {
-                    GetLogResult("Pass to WIF:" + currentBruteWifiSSID+ "Pass: " + passwordList.get(i));
+                if (CheckSuccessConnect(passwordList.get(i)) | flagBreakBrute == 1) {
+                    GetLogResult("Pass to WIF:" + currentBruteWifiSSID + "Pass: " + passwordList.get(i));
                     GetLogGoodResults("WIFI: " + currentBruteWifiSSID + " Pass:" + passwordList.get(i));
                     break;
                 }
-
             }
         }
     }
 
-    /* Test  dont work */
+    /* Test don`t work */
     private boolean CheckSuccessConnect(String checkPassword) {
         wifiInfo = wifiManager.getConnectionInfo();
         currentConnectSSID = wifiInfo.getSSID();
@@ -224,8 +229,8 @@ public class BruteFragment extends Fragment {
         return currentBruteWifiSSID != null;
     }
 
+    /* Open file and append to passwords list */
     private void OpenTxt() throws IOException {
-
         InputStream inputStream;
         String encode = "UTF-8";
         BufferedReader bufferedReader;
@@ -233,14 +238,11 @@ public class BruteFragment extends Fragment {
 
         for (int i = 0; i < passwordUriList.size(); i++) {
             inputStream = getContext().getContentResolver().openInputStream(Uri.parse(passwordUriList.get(i)));
-
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
             while ((line = bufferedReader.readLine()) != null) {
                 passwordList.add(line);
             }
             inputStream.close();
         }
     }
-
 }

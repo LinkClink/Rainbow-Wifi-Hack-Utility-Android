@@ -59,7 +59,7 @@ public class PasswordListFragment extends Fragment {
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri uri) {
-                        SetPasswordList(uri.getPath());
+                        SetPasswordList(uri.getLastPathSegment());
                         passUri = uri.toString();
                         bundle= new Bundle();
                         bundle.putString("passwordUri",passUri);

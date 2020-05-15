@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Log fragment -->
-    <string name="CurrentWifi">Current Wifi</string>
+    <string name="CurrentWifi">Current Wifi:</string>
     <string name="LogCat">LogCat:</string>
     <string name="GodResults">God Results:</string>
     <string name="ResetLog">Reset</string>

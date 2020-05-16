@@ -14,13 +14,14 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/list"
-            android:name="WifiListFragment.WifiListFragment"
+            android:name="WifiTools.WifiListFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout="@layout/wifi_list_fragment" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/wifiOnOff"
-            android:name="WifiOnOffFragment.WifiOnOffFragment"
+            android:name="WifiTools.WifiOnOffFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

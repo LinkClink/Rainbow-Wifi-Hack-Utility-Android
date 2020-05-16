@@ -3,9 +3,13 @@
 
     <!-- Log fragment -->
     <dimen name="dimenTextViewHeight0">70dp</dimen>
+    <dimen name="dimenTextViewHeight1">150dp</dimen>
 
     <!-- Wifi list fragment  -->
     <dimen name="dimenListViewHeight">200dp</dimen>
     <dimen name="dimenListViewWeight">200dp</dimen>
+
+    <!-- Password fragment -->
+    <dimen name="dimenTextViewHeight2">60dp</dimen>
 
 </resources>

@@ -6,7 +6,7 @@
     android:background="@drawable/shape_background_fragment"
     android:orientation="vertical"
     android:theme="@style/FragmentsTheme"
-    tools:context="WifiListFragment.WifiListFragment">
+    tools:context="WifiTools.WifiListFragment">
 
     <TextView
         android:id="@+id/textView10"

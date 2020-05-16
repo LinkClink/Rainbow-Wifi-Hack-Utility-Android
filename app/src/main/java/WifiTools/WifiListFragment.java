@@ -1,4 +1,4 @@
-package WifiListFragment;
+package WifiTools;
 
 import android.content.Context;
 import android.content.IntentFilter;
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import logic.ShowToast;
-import logic.WifiReceiver;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +18,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.linkclink.gfr.R;
-
-import java.lang.reflect.Method;
 
 public class WifiListFragment extends Fragment {
 
@@ -49,12 +46,10 @@ public class WifiListFragment extends Fragment {
         this.inflater = inflater;
         this.container = container;
         InitialisationComponents();
-        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) requireContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        /* Check wifi enabled */
-        CheckWifiEnabled();
         /* Check HotSpot enabled */
-        if (CheckHotSpotEnabled())
+        if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
             ShowToast.showToast(getContext(), "Please disable HotSpot:");
         /* First Scan */
         wifiManager.startScan();
@@ -62,7 +57,7 @@ public class WifiListFragment extends Fragment {
         btRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CheckHotSpotEnabled())
+                if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
                     ShowToast.showToast(getContext(), "Please disable HotSpot:");
                 else Refresh();
             }
@@ -79,6 +74,13 @@ public class WifiListFragment extends Fragment {
         return view;
     }
 
+    /* Components layout initialisation */
+    private void InitialisationComponents() {
+        view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
+        btRefresh = (Button) view.findViewById(R.id.button_refresh);
+        lwWifiList = (ListView) view.findViewById(R.id.listview_wifi_list);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -91,20 +93,7 @@ public class WifiListFragment extends Fragment {
         wifiReceiver = new WifiReceiver(wifiManager, lwWifiList);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        getActivity().registerReceiver(wifiReceiver, intentFilter);
-    }
-
-    /* Do not use */
-    private void CheckWifiEnabled() {
-        if (!wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
-        }
-    }
-
-    private void InitialisationComponents() {
-        view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
-        btRefresh = (Button) view.findViewById(R.id.button_refresh);
-        lwWifiList = (ListView) view.findViewById(R.id.listview_wifi_list);
+        requireActivity().registerReceiver(wifiReceiver, intentFilter);
     }
 
     /* Refresh wifi list */
@@ -120,16 +109,5 @@ public class WifiListFragment extends Fragment {
         bundle = new Bundle();
         bundle.putString("selectedWifi", wifi);
         getParentFragmentManager().setFragmentResult("selectedWifi", bundle);
-    }
-
-    /* Check HotSpot enabled */
-    private boolean CheckHotSpotEnabled() {
-        try {
-            Method method = wifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-            method.setAccessible(true);
-            return (Boolean) method.invoke(wifiManager);
-        } catch (Throwable ignored) {
-        }
-        return false;
     }
 }

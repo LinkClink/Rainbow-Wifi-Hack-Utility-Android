@@ -1,4 +1,4 @@
-package logic;
+package WifiTools;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import logic.ShowToast;
 
 public class WifiReceiver extends BroadcastReceiver {
     private WifiManager wifiManager;

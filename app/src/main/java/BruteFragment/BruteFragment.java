@@ -1,7 +1,8 @@
 package BruteFragment;
 
 import android.content.Context;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -20,13 +21,10 @@ import android.widget.Button;
 
 import com.linkclink.gfr.R;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BruteFragment extends Fragment {
 
@@ -42,20 +40,20 @@ public class BruteFragment extends Fragment {
     private Button buttonBruteAll;
 
     private WifiManager wifiManager;
-    private WifiInfo wifiInfo;
     private WifiConfiguration wifiConfiguration;
 
-    private Bundle bundle;
-
     private String currentBruteWifiSSID = null;
-    private String currentConnectSSID;
 
     private int flagStartBrute = 0;
     private int flagErrorBrute = 0;
     private int flagBreakBrute = 0;
 
     private List<String> passwordList = new ArrayList<String>();
-    private List<String> passwordUriList = new ArrayList<String>();
+    private List<String> passwordUriList = new ArrayList<String>(); /* Not usage */
+
+    private SetLog setLog;
+    private CheckWifi checkWifi;
+    private UpdatePasswordList updatePasswordList;
 
     public static BruteFragment newInstance() {
         return new BruteFragment();
@@ -67,7 +65,10 @@ public class BruteFragment extends Fragment {
         this.container = container;
         this.inflater = inflater;
         InitialisationComponents();
-        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) requireContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        setLog = new SetLog(getParentFragmentManager());
+        checkWifi = new CheckWifi(wifiManager);
+        updatePasswordList = new UpdatePasswordList(passwordList, getContext());
 
         buttonBrute.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +87,9 @@ public class BruteFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("passwordUri", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                passwordUriList.add(result.getString("passwordUri"));
+                passwordUriList.add(result.getString("passwordUri")); /* Not usage */
                 try {
-                    OpenTxt();
+                    setLog.SetLogResult("Update/List Success added " + updatePasswordList.UpdateList(result.getString("passwordUri"))+ " passwords");
                 } catch (IOException e) {
                     ShowToast.showToast(getContext(), "Error " + e.getMessage());
                 }
@@ -104,6 +105,7 @@ public class BruteFragment extends Fragment {
         return view;
     }
 
+    /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.brute_fragment, container, false);
         buttonBrute = (Button) view.findViewById(R.id.button_brute);
@@ -113,13 +115,13 @@ public class BruteFragment extends Fragment {
     private void BruteMain() {
         flagBreakBrute = 0;
         /* Check HotSpot enabled and disable */
-        if (!CheckHotSpotEnabled()) {
+        if (!checkWifi.CheckHotSpotEnabled()) {
             /* Check wifi enabled */
-            if (!CheckWifiEnabled()) {
+            if (!checkWifi.CheckWifiEnabled()) {
                 /* Check empty wif and brute */
                 if (!passwordList.isEmpty()) {
                     /* Check empty wifi and brute */
-                    if (CheckCurrentWifi()) {
+                    if (checkWifi.CheckCurrentWifi(currentBruteWifiSSID)) {
                         Brute();
                     } else ShowToast.showToast(getContext(), "Please selected wifi to brute:");
 
@@ -132,8 +134,8 @@ public class BruteFragment extends Fragment {
 
     /* Test */
     private void Brute() {
-        GetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID);
-        GetLogCurrentWifi(currentBruteWifiSSID);
+        setLog.SetLogCurrentWifi("Brute/Start brute wifi: " + currentBruteWifiSSID);
+        setLog.SetLogCurrentWifi(currentBruteWifiSSID);
 
         /* Test */
         for (int i = 0; i < passwordList.size(); i++) {
@@ -163,86 +165,19 @@ public class BruteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                if (CheckSuccessConnect(passwordList.get(i)) | flagBreakBrute == 1) {
-                    GetLogResult("Pass to WIF:" + currentBruteWifiSSID + "Pass: " + passwordList.get(i));
-                    GetLogGoodResults("WIFI: " + currentBruteWifiSSID + " Pass:" + passwordList.get(i));
+                if (CheckSuccessConnect() | flagBreakBrute == 1) {
+                    setLog.SetLogResult("Pass to WIF:" + currentBruteWifiSSID + "Pass: " + passwordList.get(i));
+                    setLog.SetLogGoodResults("WIFI: " + currentBruteWifiSSID + " Pass:" + passwordList.get(i));
                     break;
                 }
             }
         }
     }
 
-    /* Test don`t work */
-    private boolean CheckSuccessConnect(String checkPassword) {
-        wifiInfo = wifiManager.getConnectionInfo();
-        currentConnectSSID = wifiInfo.getSSID();
-        currentConnectSSID = currentConnectSSID.substring(1, currentConnectSSID.length() - 1);
+    private boolean CheckSuccessConnect() {
+        ConnectivityManager connManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = Objects.requireNonNull(connManager).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        GetLogResult("Brute/Check " + checkPassword);
-
-        if (currentBruteWifiSSID.equals(currentConnectSSID)) {
-            GetLogResult("Success connect");
-            flagStartBrute = 0;
-            return true;
-        }
-        flagStartBrute = 0;
-        return false;
-    }
-
-    /* Sets log results */
-    private void GetLogResult(String text) {
-        bundle = new Bundle();
-        bundle.putString("log", text);
-        getParentFragmentManager().setFragmentResult("log", bundle);
-    }
-
-    private void GetLogGoodResults(String text) {
-        bundle = new Bundle();
-        bundle.putString("logGod", text);
-        getParentFragmentManager().setFragmentResult("logGod", bundle);
-    }
-
-    private void GetLogCurrentWifi(String text) {
-        bundle = new Bundle();
-        bundle.putString("currentBruteWifi", text);
-        getParentFragmentManager().setFragmentResult("currentBruteWifi", bundle);
-    }
-
-    /* Check HotSpot enabled */
-    private boolean CheckHotSpotEnabled() {
-        try {
-            Method method = wifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-            method.setAccessible(true);
-            return (Boolean) method.invoke(wifiManager);
-        } catch (Throwable ignored) {
-        }
-        return false;
-    }
-
-    /* Check wifi enabled */
-    private boolean CheckWifiEnabled() {
-        return !wifiManager.isWifiEnabled();
-    }
-
-    /* Check nullable wif */
-    private boolean CheckCurrentWifi() {
-        return currentBruteWifiSSID != null;
-    }
-
-    /* Open file and append to passwords list */
-    private void OpenTxt() throws IOException {
-        InputStream inputStream;
-        String encode = "UTF-8";
-        BufferedReader bufferedReader;
-        String line;
-
-        for (int i = 0; i < passwordUriList.size(); i++) {
-            inputStream = getContext().getContentResolver().openInputStream(Uri.parse(passwordUriList.get(i)));
-            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            while ((line = bufferedReader.readLine()) != null) {
-                passwordList.add(line);
-            }
-            inputStream.close();
-        }
+        return Objects.requireNonNull(mWifi).isConnected();
     }
 }

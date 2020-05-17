@@ -17,10 +17,6 @@ import com.linkclink.gfr.R;
 
 public class LogFragment extends Fragment {
 
-    public static LogFragment newInstance() {
-        return new LogFragment();
-    }
-
     private TextView textViewLogCat;
     private TextView textViewGodResults;
     private TextView textViewCurrentWifi;
@@ -34,6 +30,10 @@ public class LogFragment extends Fragment {
 
     private String allLogResults;
     private String allGodLogResults;
+
+    public static LogFragment newInstance() {
+        return new LogFragment();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,6 +74,7 @@ public class LogFragment extends Fragment {
         return view;
     }
 
+    /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.log_fragment, container, false);
         textViewLogCat = (TextView) view.findViewById(R.id.textView_logCat);
@@ -82,18 +83,22 @@ public class LogFragment extends Fragment {
         btReset = (Button) view.findViewById(R.id.button_reset_log);
     }
 
+    /* Reset logCat */
     private void ResetLog() {
         textViewLogCat.setText("");
     }
 
+    /* Append logCat */
     private void SetLog(String logText) {
         textViewLogCat.append(logText + "\n");
     }
 
+    /* Append log good-results */
     private void SetLogGod(String godLogText) {
         textViewGodResults.append(godLogText + "\n");
     }
 
+    /* Set current wifi brute */
     private void SetCurrentWifi(String currentWifi) {
         textViewCurrentWifi.setText(currentWifi);
     }

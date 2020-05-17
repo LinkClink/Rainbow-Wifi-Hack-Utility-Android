@@ -48,10 +48,18 @@ public class PasswordListFragment extends Fragment {
         this.inflater = inflater;
         InitialisationComponents();
 
+        /* Buttons click realisation */
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetTxtPath();
+                GetFilePath();
+            }
+        });
+
+        btReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ResetPasswordList();
             }
         });
 
@@ -59,18 +67,22 @@ public class PasswordListFragment extends Fragment {
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri uri) {
-                        SetPasswordList(uri.getLastPathSegment());
-                        passUri = uri.toString();
-                        bundle= new Bundle();
-                        bundle.putString("passwordUri",passUri);
-                        getParentFragmentManager().setFragmentResult("passwordUri",bundle);
-                        ShowToast.showToast(getContext(),passUri);
+                        if (uri != null) {
+                            SetPasswordList(uri.getLastPathSegment());
+                            passUri = uri.toString();
+                            bundle = new Bundle();
+                            bundle.putString("passwordUri", passUri);
+                            getParentFragmentManager().setFragmentResult("passwordUri", bundle);
+                            ShowToast.showToast(getContext(), passUri);
+                        } else
+                            ShowToast.showToast(getContext(), "Error: please add password file ");
                     }
                 });
 
         return view;
     }
 
+    /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.password_list_fragment, container, false);
         btAdd = (Button) view.findViewById(R.id.button_add_password);
@@ -78,11 +90,18 @@ public class PasswordListFragment extends Fragment {
         textViewPasswordList = (TextView) view.findViewById(R.id.textView_passwords_list);
     }
 
-    private void GetTxtPath() {
+    /* Get file path */
+    private void GetFilePath() {
         mGetContent.launch(fileType);
     }
 
+    /* Add password file name to textView */
     private void SetPasswordList(String text) {
         textViewPasswordList.append(text + "\n");
+    }
+
+    /* Reset password list and set textView visible */
+    private void ResetPasswordList() {
+        textViewPasswordList.setText("");
     }
 }

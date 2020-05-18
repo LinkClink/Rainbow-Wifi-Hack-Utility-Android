@@ -1,4 +1,4 @@
-package StopCancelFragment;
+package AnotherFragments;
 
 import android.os.Bundle;
 
@@ -65,6 +65,4 @@ public class StopCancelFragment extends Fragment {
         bundle.putString("stopCurrentProcess", "");
         getParentFragmentManager().setFragmentResult("stopCurrentProcess", bundle);
     }
-
-
 }

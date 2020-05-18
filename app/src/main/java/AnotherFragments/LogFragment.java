@@ -1,4 +1,4 @@
-package LogFragment;
+package AnotherFragments;
 
 import android.os.Bundle;
 
@@ -28,7 +28,7 @@ public class LogFragment extends Fragment {
 
     private View view;
 
-    private String allLogResults;
+    private String allLogResults = "";
     private String allGodLogResults;
 
     public static LogFragment newInstance() {
@@ -61,6 +61,13 @@ public class LogFragment extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 SetCurrentWifi(result.getString("currentBruteWifi"));
+            }
+        });
+
+        getParentFragmentManager().setFragmentResultListener("progressLog", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                SetLogBruteProgress(result.getString("progressLog"));
             }
         });
 
@@ -101,5 +108,9 @@ public class LogFragment extends Fragment {
     /* Set current wifi brute */
     private void SetCurrentWifi(String currentWifi) {
         textViewCurrentWifi.setText(currentWifi);
+    }
+
+    private void SetLogBruteProgress(String progress) {
+        textViewLogCat.setText(allLogResults + progress);
     }
 }

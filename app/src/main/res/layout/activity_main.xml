@@ -33,19 +33,19 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/stopCancel"
-            android:name="StopCancelFragment.StopCancelFragment"
+            android:name="AnotherFragments.StopCancelFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/pass"
-            android:name="PasswordListFragment.PasswordListFragment"
+            android:name="AnotherFragments.PasswordListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/log"
-            android:name="LogFragment.LogFragment"
+            android:name="AnotherFragments.LogFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

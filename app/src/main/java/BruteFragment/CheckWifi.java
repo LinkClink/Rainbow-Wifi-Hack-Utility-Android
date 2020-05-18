@@ -6,10 +6,10 @@ import java.lang.reflect.Method;
 
 class CheckWifi extends BruteFragment {
 
-    private static WifiManager wifiManager;
+    private WifiManager wifiManager;
 
     CheckWifi(WifiManager wifiManager) {
-        CheckWifi.wifiManager = wifiManager;
+        this.wifiManager = wifiManager;
     }
 
     /* Check HotSpot enabled */

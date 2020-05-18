@@ -33,4 +33,10 @@ class SetLog {
         bundle.putString("currentBruteWifi", text);
         fragmentManager.setFragmentResult("currentBruteWifi", bundle);
     }
+
+    void SetLogBruteProgress(String text) {
+        bundle = new Bundle();
+        bundle.putString("progressLog", text);
+        fragmentManager.setFragmentResult("progressLog", bundle);
+    }
 }

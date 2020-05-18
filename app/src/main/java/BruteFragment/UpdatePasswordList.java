@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 class UpdatePasswordList {
@@ -20,10 +19,11 @@ class UpdatePasswordList {
 
     private int fileSize;
 
-    private List<String> passwordList = new ArrayList<String>();
+    private List<String> passwordList;
 
     private Context context;
 
+    /* Realization */
     UpdatePasswordList(List<String> passwordList, Context context) {
         this.passwordList = passwordList;
         this.context = context;

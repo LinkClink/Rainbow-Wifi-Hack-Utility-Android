@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
@@ -64,16 +63,20 @@ public class BruteFragment extends Fragment {
 
         this.container = container;
         this.inflater = inflater;
-        InitialisationComponents();
         wifiManager = (WifiManager) requireContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        setLog = new SetLog(getParentFragmentManager());
-        checkWifi = new CheckWifi(wifiManager);
-        updatePasswordList = new UpdatePasswordList(passwordList, getContext());
+        InitialisationComponentsPlus();
 
         buttonBrute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BruteMain();
+            }
+        });
+
+        buttonBruteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Test();
             }
         });
 
@@ -89,7 +92,7 @@ public class BruteFragment extends Fragment {
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 passwordUriList.add(result.getString("passwordUri")); /* Not usage */
                 try {
-                    setLog.SetLogResult("Update/List Success added " + updatePasswordList.UpdateList(result.getString("passwordUri"))+ " passwords");
+                    setLog.SetLogResult("Update/List Success added " + updatePasswordList.UpdateList(result.getString("passwordUri")) + " passwords");
                 } catch (IOException e) {
                     ShowToast.showToast(getContext(), "Error " + e.getMessage());
                 }
@@ -102,14 +105,19 @@ public class BruteFragment extends Fragment {
                 flagBreakBrute = 1;
             }
         });
+
         return view;
     }
 
-    /* Components layout initialisation */
-    private void InitialisationComponents() {
+    /* Components layout initialisation and objects */
+    private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.brute_fragment, container, false);
         buttonBrute = (Button) view.findViewById(R.id.button_brute);
         buttonBruteAll = (Button) view.findViewById(R.id.button_bruteAll);
+
+        setLog = new SetLog(getParentFragmentManager());
+        checkWifi = new CheckWifi(wifiManager);
+        updatePasswordList = new UpdatePasswordList(passwordList, getContext());
     }
 
     private void BruteMain() {
@@ -122,7 +130,7 @@ public class BruteFragment extends Fragment {
                 if (!passwordList.isEmpty()) {
                     /* Check empty wifi and brute */
                     if (checkWifi.CheckCurrentWifi(currentBruteWifiSSID)) {
-                        Brute();
+                        Test();
                     } else ShowToast.showToast(getContext(), "Please selected wifi to brute:");
 
                 } else ShowToast.showToast(getContext(), "Please add passwords list:");
@@ -132,14 +140,31 @@ public class BruteFragment extends Fragment {
         } else ShowToast.showToast(getContext(), "Please disable HotSpot:");
     }
 
+    private void Test() {
+
+        ConnectivityManager connManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = Objects.requireNonNull(connManager).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        setLog.SetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID);
+        setLog.SetLogCurrentWifi(currentBruteWifiSSID);
+
+        BruteProccess bruteProccess = new BruteProccess(passwordList, wifiManager, wifiConfiguration,
+                currentBruteWifiSSID, getParentFragmentManager(),connManager,mWifi);
+
+        bruteProccess.execute();
+
+        //CheckSuccessConnect();
+    }
+
     /* Test */
     private void Brute() {
-        setLog.SetLogCurrentWifi("Brute/Start brute wifi: " + currentBruteWifiSSID);
+        setLog.SetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID);
         setLog.SetLogCurrentWifi(currentBruteWifiSSID);
 
         /* Test */
         for (int i = 0; i < passwordList.size(); i++) {
 
+            setLog.SetLogResult("1");
             if (flagStartBrute == 0) {
 
                 flagStartBrute = 1;
@@ -170,14 +195,15 @@ public class BruteFragment extends Fragment {
                     setLog.SetLogGoodResults("WIFI: " + currentBruteWifiSSID + " Pass:" + passwordList.get(i));
                     break;
                 }
+                flagStartBrute = 0;
             }
         }
     }
 
-    private boolean CheckSuccessConnect() {
+    /* Check success connection */
+    boolean CheckSuccessConnect() {
         ConnectivityManager connManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = Objects.requireNonNull(connManager).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
         return Objects.requireNonNull(mWifi).isConnected();
     }
 }

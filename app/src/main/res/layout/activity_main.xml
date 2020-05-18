@@ -14,13 +14,14 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/list"
-            android:name="WifiListFragment.WifiListFragment"
+            android:name="WifiTools.WifiListFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout="@layout/wifi_list_fragment" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/wifiOnOff"
-            android:name="WifiOnOffFragment.WifiOnOffFragment"
+            android:name="WifiTools.WifiOnOffFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -31,14 +32,20 @@
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/stopCancel"
+            android:name="AnotherFragments.StopCancelFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/pass"
-            android:name="PasswordListFragment.PasswordListFragment"
+            android:name="AnotherFragments.PasswordListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/log"
-            android:name="LogFragment.LogFragment"
+            android:name="AnotherFragments.LogFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -6,7 +6,7 @@
     android:background="@drawable/shape_background_fragment"
     android:orientation="vertical"
     android:theme="@style/FragmentsTheme"
-    tools:context="LogFragment.LogFragment">
+    tools:context="AnotherFragments.LogFragment">
 
 
     <LinearLayout

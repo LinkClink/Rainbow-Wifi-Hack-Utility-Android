@@ -1,4 +1,4 @@
-package WifiOnOffFragment;
+package WifiTools;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.linkclink.gfr.R;
-
-import java.lang.reflect.Method;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,13 +37,13 @@ public class WifiOnOffFragment extends Fragment {
         this.container = container;
         this.inflater = inflater;
         InitialisationComponents();
-        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) requireContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         /* Buttons click realisation */
         button_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CheckHotSpotEnabled())
+                if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
                     ShowToast.showToast(getContext(), "Please disable HotSpot:");
                 WifiOn();
             }
@@ -53,7 +51,7 @@ public class WifiOnOffFragment extends Fragment {
         button_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CheckHotSpotEnabled())
+                if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
                     ShowToast.showToast(getContext(), "Please disable HotSpot:");
                 WifiOff();
             }
@@ -62,6 +60,7 @@ public class WifiOnOffFragment extends Fragment {
         return view;
     }
 
+    /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.wifi_on_of_fragment, container, false);
         button_off = (Button) view.findViewById(R.id.button_wifi_off);
@@ -70,7 +69,7 @@ public class WifiOnOffFragment extends Fragment {
 
     /* Check and enable Wifi */
     private void WifiOn() {
-        CheckHotSpotEnabled();
+        CheckHotSpot.CheckHotSpotEnabled(wifiManager);
         if (!wifiManager.isWifiEnabled())
             wifiManager.setWifiEnabled(true);
         else ShowToast.showToast(getContext(), "Already wifi enabled");
@@ -78,20 +77,9 @@ public class WifiOnOffFragment extends Fragment {
 
     /* Check and disable Wifi */
     private void WifiOff() {
-        CheckHotSpotEnabled();
+        CheckHotSpot.CheckHotSpotEnabled(wifiManager);
         if (wifiManager.isWifiEnabled())
             wifiManager.setWifiEnabled(false);
         else ShowToast.showToast(getContext(), "Already wifi disabled");
-    }
-
-    /* Check HotSpot enabled */
-    private boolean CheckHotSpotEnabled() {
-        try {
-            Method method = wifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-            method.setAccessible(true);
-            return (Boolean) method.invoke(wifiManager);
-        } catch (Throwable ignored) {
-        }
-        return false;
     }
 }

@@ -2,9 +2,11 @@ package AnotherFragments;
 
 import android.os.Bundle;
 
+import BruteFragment.BruteFragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import logic.ShowToast;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ public class StopCancelFragment extends Fragment {
 
     private View view;
 
+    private BruteFragment bruteFragment;
+
     public static StopCancelFragment newInstance() {
         return new StopCancelFragment();
     }
@@ -34,7 +38,7 @@ public class StopCancelFragment extends Fragment {
 
         this.container = container;
         this.inflater = inflater;
-        InitiationComponents();
+        InitiationComponentsPlus();
 
         btStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,23 +50,26 @@ public class StopCancelFragment extends Fragment {
         return view;
     }
 
-    private void InitiationComponents() {
+    private void InitiationComponentsPlus() {
         view = inflater.inflate(R.layout.stop_cancel_fragment, container, false);
-        btStop = (Button) view.findViewById(R.id.button_cancel);
-        btCancel = (Button) view.findViewById(R.id.button_stop);
+        btStop = (Button) view.findViewById(R.id.button_stop);
+        btCancel = (Button) view.findViewById(R.id.button_cancel);
+
+        bruteFragment = new BruteFragment();
     }
 
     private void Stop() {
-        bundle = new Bundle();
-        bundle.putString("log", "Stopping current process....");
-        getParentFragmentManager().setFragmentResult("log", bundle);
-        SetFlag();
-
+        if (bruteFragment.getFlagCurrentBrute() == 1) {
+            bundle = new Bundle();
+            bundle.putString("log", "Stopping current process...");
+            getParentFragmentManager().setFragmentResult("log", bundle);
+            SetFlag();
+        } else ShowToast.showToast(getContext(), "Don't stop");
     }
 
     private void SetFlag() {
         bundle = new Bundle();
-        bundle.putString("stopCurrentProcess", "");
-        getParentFragmentManager().setFragmentResult("stopCurrentProcess", bundle);
+        bundle.putString("stopBrute", "");
+        getParentFragmentManager().setFragmentResult("stopBrute", bundle);
     }
 }

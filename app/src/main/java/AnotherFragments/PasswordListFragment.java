@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.linkclink.gfr.R;
 
+import BruteFragment.BruteFragment;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -73,7 +74,7 @@ public class PasswordListFragment extends Fragment {
                             bundle = new Bundle();
                             bundle.putString("passwordUri", passUri);
                             getParentFragmentManager().setFragmentResult("passwordUri", bundle);
-                            ShowToast.showToast(getContext(), passUri);
+                            ShowToast.showToast(getContext(), "Success added file " + uri.getLastPathSegment());
                         } else
                             ShowToast.showToast(getContext(), "Error: please add password file ");
                     }
@@ -102,6 +103,11 @@ public class PasswordListFragment extends Fragment {
 
     /* Reset password list and set textView visible */
     private void ResetPasswordList() {
-        textViewPasswordList.setText("");
+        BruteFragment bruteFragment = new BruteFragment();
+        if (bruteFragment.getFlagCurrentBrute() == 0) {
+            bundle = new Bundle();
+            getParentFragmentManager().setFragmentResult("resetPasswordList", bundle);
+            textViewPasswordList.setText("");
+        } else ShowToast.showToast(requireContext(), "Error: don't reset when brute start");
     }
 }

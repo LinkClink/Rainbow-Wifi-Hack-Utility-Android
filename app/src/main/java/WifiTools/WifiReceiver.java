@@ -28,13 +28,11 @@ public class WifiReceiver extends BroadcastReceiver {
 
         if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(action)) {
 
-            StringBuilder stringBuilder = new StringBuilder();
             List<ScanResult> wifiList = wifiManager.getScanResults();
             ArrayList<String> deviceList = new ArrayList<>();
 
             for (ScanResult scanResult : wifiList) {
-                stringBuilder.append("\n").append(scanResult.SSID).append(" - ").append(scanResult.capabilities); /* Do not usage */
-                deviceList.add(scanResult.SSID); /* deviceList.add(scanResult.SSID + " - " + scanResult.capabilities) */
+                deviceList.add(scanResult.SSID);
             }
 
             ShowToast.showToast(context, "Update wifi list:");

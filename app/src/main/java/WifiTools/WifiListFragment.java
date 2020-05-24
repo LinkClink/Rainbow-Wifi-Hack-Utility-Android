@@ -34,8 +34,6 @@ public class WifiListFragment extends Fragment {
 
     private String currentWifiSelected;
 
-    private Bundle bundle;
-
     public static WifiListFragment newInstance() {
         return new WifiListFragment();
     }
@@ -106,7 +104,7 @@ public class WifiListFragment extends Fragment {
     /* Set actually wifi brute */
     private void SetCurrentWifiBrute(String wifi) {
         ShowToast.showToast(getContext(), "Set current wifi:" + wifi);
-        bundle = new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putString("selectedWifi", wifi);
         getParentFragmentManager().setFragmentResult("selectedWifi", bundle);
     }

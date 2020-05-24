@@ -33,6 +33,7 @@ class UpdatePasswordList {
     int UpdateList(String fileUri) throws IOException {
         fileSize = 0;
         inputStream = context.getContentResolver().openInputStream(Uri.parse(fileUri));
+        assert inputStream != null;
         bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         while ((line = bufferedReader.readLine()) != null) {
             passwordList.add(line);

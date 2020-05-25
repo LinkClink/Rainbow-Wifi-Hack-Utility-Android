@@ -30,5 +30,7 @@
     <string name="BruteAll">Brute All</string>
     <string name="Brute">Brute</string>
     <string name="Brute0">Brute:</string>
+    <string name="Thread">Thread</string>
+    <string name="ThreadValue">100</string>
 
 </resources>

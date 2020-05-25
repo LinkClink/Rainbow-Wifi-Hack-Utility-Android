@@ -12,4 +12,7 @@
     <!-- Password fragment -->
     <dimen name="dimenTextViewHeight2">80dp</dimen>
 
+    <!-- Brute fragment -->
+    <dimen name="SeekBarWeight0">250dp</dimen>
+
 </resources>

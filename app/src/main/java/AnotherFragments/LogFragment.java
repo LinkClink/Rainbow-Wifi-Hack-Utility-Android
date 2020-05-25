@@ -29,7 +29,7 @@ public class LogFragment extends Fragment {
     private View view;
 
     private String allLogResults = "";
-    private String allGodLogResults;
+    private String allGodLogResults = ""; /* Not usage */
 
     public static LogFragment newInstance() {
         return new LogFragment();
@@ -110,7 +110,8 @@ public class LogFragment extends Fragment {
         textViewCurrentWifi.setText(currentWifi);
     }
 
+    /* Set brute process */
     private void SetLogBruteProgress(String progress) {
-        textViewLogCat.setText(allLogResults + progress);
+        textViewLogCat.setText(String.format("%s%s", allLogResults, progress));
     }
 }

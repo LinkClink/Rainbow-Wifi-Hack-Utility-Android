@@ -186,7 +186,7 @@ public class BruteFragment extends Fragment {
     private void setSeekBarValue() {
         seekBarThread.setProgress(saveSharedPreferences.GetThreadValue());
         textViewThreadValue.setText(String.valueOf(saveSharedPreferences.GetThreadValue()));
-
+        threadValue = saveSharedPreferences.GetThreadValue();
     }
 
 }

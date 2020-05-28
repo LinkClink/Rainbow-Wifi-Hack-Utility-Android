@@ -47,7 +47,7 @@ public class PasswordListFragment extends Fragment {
 
         this.container = container;
         this.inflater = inflater;
-        InitialisationComponents();
+        InitialisationComponentsPlus();
 
         /* Buttons click realisation */
         btAdd.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +84,12 @@ public class PasswordListFragment extends Fragment {
     }
 
     /* Components layout initialisation */
-    private void InitialisationComponents() {
+    private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.password_list_fragment, container, false);
         btAdd = (Button) view.findViewById(R.id.button_add_password);
         btReset = (Button) view.findViewById(R.id.button_reset_password);
         textViewPasswordList = (TextView) view.findViewById(R.id.textView_passwords_list);
+
     }
 
     /* Get file path */

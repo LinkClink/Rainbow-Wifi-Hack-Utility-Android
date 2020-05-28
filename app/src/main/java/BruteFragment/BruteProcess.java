@@ -56,7 +56,6 @@ public class BruteProcess extends AsyncTask {
     }
 
     private void Brute() {
-        parsePassword = "";
         for (int i = 0; i < passwordList.size(); i++) {
 
             if (flagBrute == 0) {
@@ -72,6 +71,7 @@ public class BruteProcess extends AsyncTask {
 
                 publishProgress(i);
 
+                /* Success brute */
                 if (CheckSuccessConnect()) {
                     parsePassword = passwordList.get(i);
                     break;
@@ -111,6 +111,7 @@ public class BruteProcess extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
         flagStopBrute = 0;
+        parsePassword = "";
         Brute();
         return null;
     }
@@ -122,7 +123,7 @@ public class BruteProcess extends AsyncTask {
         if (!parsePassword.equals(""))
             SuccessParsePassword();
         BruteFragment bruteFragment = new BruteFragment();
-        bruteFragment.setFlagCurrentBrute((byte) 0);
+        bruteFragment.setFlagCurrentBrute();
     }
 
     @Override

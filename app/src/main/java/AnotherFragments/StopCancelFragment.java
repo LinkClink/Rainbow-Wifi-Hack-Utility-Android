@@ -58,6 +58,7 @@ public class StopCancelFragment extends Fragment {
         bruteFragment = new BruteFragment();
     }
 
+    /* Stop current brute */
     private void Stop() {
         if (bruteFragment.getFlagCurrentBrute() == 1) {
             bundle = new Bundle();

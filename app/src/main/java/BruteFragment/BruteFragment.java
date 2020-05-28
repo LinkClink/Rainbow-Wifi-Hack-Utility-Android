@@ -142,6 +142,7 @@ public class BruteFragment extends Fragment {
         saveSharedPreferences = new SaveSharedPreferences(requireContext());
     }
 
+    /* Check all ready to start brute */
     private void BruteMainCheck() {
         /* Check HotSpot enabled and disable */
         if (!checkWifi.CheckHotSpotEnabled()) {
@@ -164,6 +165,7 @@ public class BruteFragment extends Fragment {
         } else ShowToast.showToast(getContext(), "Please disable HotSpot:");
     }
 
+    /* Start brute with asyncTask */
     private void InitialisationAsyncTask() {
         flagCurrentBrute = 1;
         setLog.SetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID + " thread: " + threadValue);
@@ -179,8 +181,8 @@ public class BruteFragment extends Fragment {
         return flagCurrentBrute;
     }
 
-    void setFlagCurrentBrute(byte flagCurrentBrute) {
-        BruteFragment.flagCurrentBrute = flagCurrentBrute;
+    void setFlagCurrentBrute() {
+        BruteFragment.flagCurrentBrute = (byte) 0;
     }
 
     private void setSeekBarValue() {

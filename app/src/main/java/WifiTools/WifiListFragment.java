@@ -1,12 +1,16 @@
 package WifiTools;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import logic.ShowToast;
 
@@ -17,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.linkclink.gfr.MainActivity;
 import com.linkclink.gfr.R;
 
 public class WifiListFragment extends Fragment {
@@ -55,6 +60,7 @@ public class WifiListFragment extends Fragment {
         btRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CheckPermission())
                 if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
                     ShowToast.showToast(getContext(), "Please disable HotSpot:");
                 else Refresh();
@@ -82,7 +88,7 @@ public class WifiListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        requireActivity().unregisterReceiver(wifiReceiver); /* getActivity().unregisterReceiver(wifiReceiver); */
+        requireActivity().unregisterReceiver(wifiReceiver);
     }
 
     @Override
@@ -107,5 +113,14 @@ public class WifiListFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("selectedWifi", wifi);
         getParentFragmentManager().setFragmentResult("selectedWifi", bundle);
+    }
+
+    /* Check permissions to visible wifi list */
+    private boolean CheckPermission() {
+        String permission = Manifest.permission.ACCESS_FINE_LOCATION;
+        if (ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{permission}, 100);
+        } else return true;
+        return false;
     }
 }

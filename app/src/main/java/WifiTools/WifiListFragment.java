@@ -113,6 +113,7 @@ public class WifiListFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("selectedWifi", wifi);
         getParentFragmentManager().setFragmentResult("selectedWifi", bundle);
+        getParentFragmentManager().setFragmentResult("selectedWifiTest", bundle);
     }
 
     /* Check permissions to visible wifi list */

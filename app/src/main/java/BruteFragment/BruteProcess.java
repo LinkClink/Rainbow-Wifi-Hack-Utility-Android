@@ -62,6 +62,7 @@ public class BruteProcess extends AsyncTask {
 
                 flagBrute = 1;
                 wifiManager.removeNetwork(netId);
+
                 /* Config */
                 WifiGeneratedConfig(i);
                 /* Try connect */
@@ -123,7 +124,7 @@ public class BruteProcess extends AsyncTask {
         if (!parsePassword.equals(""))
             SuccessParsePassword();
         BruteFragment bruteFragment = new BruteFragment();
-        bruteFragment.setFlagCurrentBrute();
+        bruteFragment.setFlagCurrentBrute((byte) 0);
     }
 
     @Override

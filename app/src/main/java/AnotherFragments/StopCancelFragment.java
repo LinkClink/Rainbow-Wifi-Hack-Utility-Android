@@ -19,7 +19,6 @@ public class StopCancelFragment extends Fragment {
 
     private Bundle bundle;
 
-    private Button btCancel;
     private Button btStop;
 
     private LayoutInflater inflater;
@@ -28,10 +27,6 @@ public class StopCancelFragment extends Fragment {
     private View view;
 
     private BruteFragment bruteFragment;
-
-    public static StopCancelFragment newInstance() {
-        return new StopCancelFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,8 +47,7 @@ public class StopCancelFragment extends Fragment {
 
     private void InitiationComponentsPlus() {
         view = inflater.inflate(R.layout.stop_cancel_fragment, container, false);
-        btStop = (Button) view.findViewById(R.id.button_stop);
-        btCancel = (Button) view.findViewById(R.id.button_cancel);
+        btStop = view.findViewById(R.id.button_stop);
 
         bruteFragment = new BruteFragment();
     }
@@ -64,11 +58,12 @@ public class StopCancelFragment extends Fragment {
             bundle = new Bundle();
             bundle.putString("log", "Stopping current process...");
             getParentFragmentManager().setFragmentResult("log", bundle);
-            SetFlag();
+            SetFlagBrute();
         } else ShowToast.showToast(getContext(), "Don't stop");
     }
 
-    private void SetFlag() {
+    /* Set flag in brute fragment */
+    private void SetFlagBrute() {
         bundle = new Bundle();
         bundle.putString("stopBrute", "");
         getParentFragmentManager().setFragmentResult("stopBrute", bundle);

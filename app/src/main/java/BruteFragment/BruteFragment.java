@@ -49,12 +49,7 @@ public class BruteFragment extends Fragment {
     private SetLog setLog;
     private CheckWifi checkWifi;
     private UpdatePasswordList updatePasswordList;
-    private BruteProcess bruteProcess;
     private SaveSharedPreferences saveSharedPreferences;
-
-    public static BruteFragment newInstance() {
-        return new BruteFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,13 +75,18 @@ public class BruteFragment extends Fragment {
                 threadValue = i + 100;
                 saveSharedPreferences.SaveThreadValue(threadValue);
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        getParentFragmentManager().setFragmentResultListener("setThreadTestResult", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                seekBarThread.setProgress(result.getInt("setThreadTestResult") - 100);
             }
         });
 
@@ -131,11 +131,10 @@ public class BruteFragment extends Fragment {
     /* Components layout initialisation and objects */
     private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.brute_fragment, container, false);
-        buttonBrute = (Button) view.findViewById(R.id.button_brute);
-        buttonBruteAll = (Button) view.findViewById(R.id.button_bruteAll);
-        seekBarThread = (SeekBar) view.findViewById(R.id.seekBar_thread);
-        textViewThreadValue = (TextView) view.findViewById(R.id.textView_threadValue);
-
+        buttonBrute = view.findViewById(R.id.button_brute);
+        buttonBruteAll = view.findViewById(R.id.button_bruteAll);
+        seekBarThread = view.findViewById(R.id.seekBar_thread);
+        textViewThreadValue = view.findViewById(R.id.textView_threadValue);
         setLog = new SetLog(getParentFragmentManager());
         checkWifi = new CheckWifi(wifiManager);
         updatePasswordList = new UpdatePasswordList(passwordList, requireContext());
@@ -171,7 +170,7 @@ public class BruteFragment extends Fragment {
         setLog.SetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID + " thread: " + threadValue);
         setLog.SetLogCurrentWifi(currentBruteWifiSSID);
 
-        bruteProcess = new BruteProcess(passwordList, wifiManager, currentBruteWifiSSID,
+        BruteProcess bruteProcess = new BruteProcess(passwordList, wifiManager, currentBruteWifiSSID,
                 getParentFragmentManager(), requireActivity(), threadValue);
 
         bruteProcess.execute();
@@ -181,8 +180,8 @@ public class BruteFragment extends Fragment {
         return flagCurrentBrute;
     }
 
-    void setFlagCurrentBrute() {
-        BruteFragment.flagCurrentBrute = (byte) 0;
+    public void setFlagCurrentBrute(byte flag) {
+        BruteFragment.flagCurrentBrute = flag;
     }
 
     private void setSeekBarValue() {
@@ -190,5 +189,4 @@ public class BruteFragment extends Fragment {
         textViewThreadValue.setText(String.valueOf(saveSharedPreferences.GetThreadValue()));
         threadValue = saveSharedPreferences.GetThreadValue();
     }
-
 }

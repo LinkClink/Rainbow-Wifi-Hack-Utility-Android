@@ -34,13 +34,8 @@ public class PasswordListFragment extends Fragment {
     private ActivityResultLauncher<String> mGetContent;
 
     private String passUri;
-    private String fileType = "text/plain";
 
     private Bundle bundle;
-
-    public static PasswordListFragment newInstance() {
-        return new PasswordListFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,14 +81,14 @@ public class PasswordListFragment extends Fragment {
     /* Components layout initialisation */
     private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.password_list_fragment, container, false);
-        btAdd = (Button) view.findViewById(R.id.button_add_password);
-        btReset = (Button) view.findViewById(R.id.button_reset_password);
-        textViewPasswordList = (TextView) view.findViewById(R.id.textView_passwords_list);
-
+        btAdd = view.findViewById(R.id.button_add_password);
+        btReset = view.findViewById(R.id.button_reset_password);
+        textViewPasswordList = view.findViewById(R.id.textView_passwords_list);
     }
 
     /* Get file path */
     private void GetFilePath() {
+        String fileType = "text/plain";
         mGetContent.launch(fileType);
     }
 

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -35,6 +35,11 @@
     <!-- Button custom 3 -->
     <style name="ButtonTheme3" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:background">@color/colorButtonBackground3</item>
+    </style>
+
+    <!-- Button custom 4 -->
+    <style name="ButtonTheme4" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">@color/colorButtonBackground4</item>
     </style>
 
     <style name="SplashScreen" parent="AppTheme">

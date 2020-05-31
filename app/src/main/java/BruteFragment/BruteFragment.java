@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import logic.SaveSharedPreferences;
+import logic.SetLog;
 import logic.ShowToast;
 
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ public class BruteFragment extends Fragment {
     private View view;
 
     private Button buttonBrute;
-    private Button buttonBruteAll;
     private SeekBar seekBarThread;
     private TextView textViewThreadValue;
 
@@ -44,7 +44,6 @@ public class BruteFragment extends Fragment {
     private String currentBruteWifiSSID = null;
 
     private List<String> passwordList = new ArrayList<String>();
-    private List<String> passwordUriList = new ArrayList<String>(); /* Not usage */
 
     private SetLog setLog;
     private CheckWifi checkWifi;
@@ -75,9 +74,11 @@ public class BruteFragment extends Fragment {
                 threadValue = i + 100;
                 saveSharedPreferences.SaveThreadValue(threadValue);
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
@@ -100,7 +101,6 @@ public class BruteFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("passwordUri", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                passwordUriList.add(result.getString("passwordUri")); /* Not usage */
                 try {
                     setLog.SetLogResult("Update/List Success added " + updatePasswordList.UpdateList(result.getString("passwordUri")) + " passwords");
                 } catch (IOException e) {
@@ -132,7 +132,6 @@ public class BruteFragment extends Fragment {
     private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.brute_fragment, container, false);
         buttonBrute = view.findViewById(R.id.button_brute);
-        buttonBruteAll = view.findViewById(R.id.button_bruteAll);
         seekBarThread = view.findViewById(R.id.seekBar_thread);
         textViewThreadValue = view.findViewById(R.id.textView_threadValue);
         setLog = new SetLog(getParentFragmentManager());
@@ -184,6 +183,7 @@ public class BruteFragment extends Fragment {
         BruteFragment.flagCurrentBrute = flag;
     }
 
+    /* Set seekBar-thread value */
     private void setSeekBarValue() {
         seekBarThread.setProgress(saveSharedPreferences.GetThreadValue());
         textViewThreadValue.setText(String.valueOf(saveSharedPreferences.GetThreadValue()));

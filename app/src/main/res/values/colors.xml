@@ -13,6 +13,8 @@
     <color name="colorButtonBackground3">#F43E31</color>
     <color name="colorButtonBackground4">#1FCD0C</color>
 
+    <color name="colorComponentDisable">#6A6A6A</color>
+
 
     <color name="colorText0">#000000</color>
 

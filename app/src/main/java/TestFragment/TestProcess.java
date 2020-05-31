@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Random;
 
 import BruteFragment.BruteFragment;
 import androidx.fragment.app.FragmentManager;
+import logic.SetLog;
 
 public class TestProcess extends AsyncTask {
 
@@ -30,6 +32,8 @@ public class TestProcess extends AsyncTask {
     private int optimalThread;
     private int netId;
     private int testCount;
+
+    private Bundle bundle;
 
     private byte flagBrute = 0;
     private static byte flagStop = 0;
@@ -53,7 +57,6 @@ public class TestProcess extends AsyncTask {
 
     TestProcess(WifiManager wifiManager, String currentBruteWifiSSID,
                 FragmentManager fragmentManager, Activity activity, String password, int testCount) {
-
         this.currentBruteWifiSSID = currentBruteWifiSSID;
         this.passwordMy = password;
         this.fragmentManager = fragmentManager;
@@ -71,10 +74,8 @@ public class TestProcess extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-
         setLog.SetLogResult("Finish test optimal thread:" + optimalThread);
-        setLog.SetTestThreadResult(optimalThread);
-
+        SetTestThreadResult(optimalThread);
         BruteFragment bruteFragment = new BruteFragment();
         bruteFragment.setFlagCurrentBrute((byte) 0);
     }
@@ -82,10 +83,10 @@ public class TestProcess extends AsyncTask {
     @Override
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
-
-        setLog.SetLogBruteProgress("Test progress " + values[0].toString() + " with < " + maxThread + " thread " + "try connect " + testCount);
+        setLog.SetLogBruteProgress("Test progress: " + values[0].toString() + " with < " + maxThread + " thread " + "try connect " + testCount);
     }
 
+    /* Main */
     private void TestOptimalThread() {
         setLog = new SetLog(fragmentManager);
         passwordList.clear();
@@ -93,38 +94,30 @@ public class TestProcess extends AsyncTask {
         TestBrute();
     }
 
+    /* Main brute for test */
     private void TestBrute() {
-
         currentThread = 50;
         flagStop = 0;
 
         while (currentThread < maxThread & flagBrute == 0) {
 
             flagTryConnection = 0;
-
             for (int a = 0; a < 3; a++) {
-
                 for (int i = 0; i < passwordList.size(); i++) {
-
                     if (flagBrute == 0) {
-
                         flagBrute = 1;
                         wifiManager.removeNetwork(netId);
-
                         /* Config */
                         WifiGeneratedConfig(i);
                         /* Try connect */
                         TryConnect();
-
                         /* Thread */
                         try {
                             Thread.sleep(currentThread);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
                         publishProgress(currentThread);
-
                         /* Success brute */
                         if (CheckSuccessConnect()) {
                             optimalThread = currentThread;
@@ -136,8 +129,6 @@ public class TestProcess extends AsyncTask {
             }
             if (flagTryConnection == 3 | flagStop == 1)
                 break;
-
-
             currentThread += 50;
         }
     }
@@ -157,13 +148,10 @@ public class TestProcess extends AsyncTask {
         wifiManager.reconnect();
     }
 
-
-    /* Password length 8-12, List length 10-20 */
+    /* Generate passwords list to test (password length 8-12, List length 10-20) */
     private void GeneratedPasswordList() {
-
         listLength = generator.nextInt(10) + 10;
         listPlace = (generator.nextInt(10) + 10) / 2;
-
         for (int i = 0; i < listLength; i++) {
 
             if (i == listPlace)
@@ -172,21 +160,29 @@ public class TestProcess extends AsyncTask {
         }
     }
 
+    /* Generate password */
     private void PasswordGenerate() {
         passwordGenerate.setLength(0);
         passwordLength = generator.nextInt(4) + 8;
-
         for (int i = 0; i < passwordLength; i++) {
             passwordGenerate.append(generator.nextInt(9));
         }
         passwordList.add(String.valueOf(passwordGenerate));
     }
 
+    /* Check connection */
     private boolean CheckSuccessConnect() {
         ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         flagBrute = 0;
         return Objects.requireNonNull(networkInfo).isConnected();
+    }
+
+    /* Set optimal thread to BruteFragment */
+    private void SetTestThreadResult(int thread) {
+        bundle = new Bundle();
+        bundle.putInt("setThreadTestResult", thread);
+        fragmentManager.setFragmentResult("setThreadTestResult", bundle);
     }
 
     static void setStopBrute() {

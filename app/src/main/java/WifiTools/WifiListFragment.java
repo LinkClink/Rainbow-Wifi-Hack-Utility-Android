@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.linkclink.gfr.MainActivity;
 import com.linkclink.gfr.R;
 
 public class WifiListFragment extends Fragment {
@@ -38,10 +37,6 @@ public class WifiListFragment extends Fragment {
     private WifiReceiver wifiReceiver;
 
     private String currentWifiSelected;
-
-    public static WifiListFragment newInstance() {
-        return new WifiListFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,10 +76,11 @@ public class WifiListFragment extends Fragment {
     /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
-        btRefresh = (Button) view.findViewById(R.id.button_refresh);
-        lwWifiList = (ListView) view.findViewById(R.id.listview_wifi_list);
+        btRefresh = view.findViewById(R.id.button_refresh);
+        lwWifiList = view.findViewById(R.id.listview_wifi_list);
     }
 
+    /* Unregister wifi-receiver if app state pause */
     @Override
     public void onPause() {
         super.onPause();

@@ -48,6 +48,7 @@ public class TestFragment extends Fragment {
         InitialisationComponentsPlus();
         wifiManager = (WifiManager) requireContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
+        /* Set saved password with SharedPreferences */
         editTextPassword.setText(saveSharedPreferences.GetPassword());
 
         buttonTest.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +75,7 @@ public class TestFragment extends Fragment {
         return view;
     }
 
+    /* Components layout initialisation and objects */
     private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.test_thread_fragment, container, false);
         buttonTest = (Button) view.findViewById(R.id.button_test);
@@ -84,13 +86,19 @@ public class TestFragment extends Fragment {
         saveSharedPreferences = new SaveSharedPreferences(requireContext());
     }
 
+    /* Main test init */
     private void TestInitialisation() {
+        /* Check password - is empty */
         if (editTextPassword.getText().length() >= 8)
+            /* Check wifi is not selected */
             if (currentBruteWifiSSID != null)
+                /* Check brute already start */
                 if (bruteFragment.getFlagCurrentBrute() == 0) {
 
+                    /* Save password to SharedPreferences */
                     saveSharedPreferences.SaveYouTestPassword(editTextPassword.getText().toString());
 
+                    /* Select test try connections */
                     int countTest;
                     if (!editTextCount.getText().toString().equals(""))
                         countTest = Integer.parseInt(editTextCount.getText().toString());

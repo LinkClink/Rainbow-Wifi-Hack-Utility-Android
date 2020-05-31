@@ -27,10 +27,6 @@ public class WifiOnOffFragment extends Fragment {
 
     private WifiManager wifiManager;
 
-    public static WifiOnOffFragment newInstance() {
-        return new WifiOnOffFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -63,8 +59,8 @@ public class WifiOnOffFragment extends Fragment {
     /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.wifi_on_of_fragment, container, false);
-        button_off = (Button) view.findViewById(R.id.button_wifi_off);
-        button_on = (Button) view.findViewById(R.id.button_wifi_on);
+        button_off = view.findViewById(R.id.button_wifi_off);
+        button_on = view.findViewById(R.id.button_wifi_on);
     }
 
     /* Check and enable Wifi */

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, ACCESS_FINE_LOCATION);
     }
 
-    /* First check permissions for visible wifi list */
+    /* First check permissions for visible wifi list  Android 6+*/
     public void checkPermission(String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{permission}, requestCode);

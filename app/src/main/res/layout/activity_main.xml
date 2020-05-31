@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_view"
+    android:id="@+id/scroll_view_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
@@ -13,14 +13,14 @@
         android:orientation="vertical">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/list"
+            android:id="@+id/wifi_list"
             android:name="WifiTools.WifiListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/wifi_list_fragment" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/wifiOnOff"
+            android:id="@+id/wifi_on_off"
             android:name="WifiTools.WifiOnOffFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -32,19 +32,25 @@
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/stopCancel"
+            android:id="@+id/test"
+            android:name="TestFragment.TestFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/stop_Cancel"
             android:name="AnotherFragments.StopCancelFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/pass"
+            android:id="@+id/password"
             android:name="AnotherFragments.PasswordListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/log"
+            android:id="@+id/log_fragment"
             android:name="AnotherFragments.LogFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

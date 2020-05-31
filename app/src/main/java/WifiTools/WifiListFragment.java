@@ -1,12 +1,16 @@
 package WifiTools;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import logic.ShowToast;
 
@@ -34,10 +38,6 @@ public class WifiListFragment extends Fragment {
 
     private String currentWifiSelected;
 
-    public static WifiListFragment newInstance() {
-        return new WifiListFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -55,6 +55,7 @@ public class WifiListFragment extends Fragment {
         btRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CheckPermission())
                 if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
                     ShowToast.showToast(getContext(), "Please disable HotSpot:");
                 else Refresh();
@@ -75,14 +76,15 @@ public class WifiListFragment extends Fragment {
     /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
-        btRefresh = (Button) view.findViewById(R.id.button_refresh);
-        lwWifiList = (ListView) view.findViewById(R.id.listview_wifi_list);
+        btRefresh = view.findViewById(R.id.button_refresh);
+        lwWifiList = view.findViewById(R.id.listview_wifi_list);
     }
 
+    /* Unregister wifi-receiver if app state pause */
     @Override
     public void onPause() {
         super.onPause();
-        requireActivity().unregisterReceiver(wifiReceiver); /* getActivity().unregisterReceiver(wifiReceiver); */
+        requireActivity().unregisterReceiver(wifiReceiver);
     }
 
     @Override
@@ -107,5 +109,15 @@ public class WifiListFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("selectedWifi", wifi);
         getParentFragmentManager().setFragmentResult("selectedWifi", bundle);
+        getParentFragmentManager().setFragmentResult("selectedWifiTest", bundle);
+    }
+
+    /* Check permissions to visible wifi list */
+    private boolean CheckPermission() {
+        String permission = Manifest.permission.ACCESS_FINE_LOCATION;
+        if (ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{permission}, 100);
+        } else return true;
+        return false;
     }
 }

@@ -29,11 +29,6 @@ public class LogFragment extends Fragment {
     private View view;
 
     private String allLogResults = "";
-    private String allGodLogResults = ""; /* Not usage */
-
-    public static LogFragment newInstance() {
-        return new LogFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +48,6 @@ public class LogFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("logGod", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                allGodLogResults += result.getString("logGod") + "\n"; /* Not usage */
                 SetLogGod(result.getString("logGod"));
             }
         });
@@ -84,10 +78,10 @@ public class LogFragment extends Fragment {
     /* Components layout initialisation */
     private void InitialisationComponents() {
         view = inflater.inflate(R.layout.log_fragment, container, false);
-        textViewLogCat = (TextView) view.findViewById(R.id.textView_logCat);
-        textViewGodResults = (TextView) view.findViewById(R.id.textView_GodResults);
-        textViewCurrentWifi = (TextView) view.findViewById(R.id.textView_currentWifi);
-        btReset = (Button) view.findViewById(R.id.button_reset_log);
+        textViewLogCat = view.findViewById(R.id.textView_logCat);
+        textViewGodResults = view.findViewById(R.id.textView_GodResults);
+        textViewCurrentWifi = view.findViewById(R.id.textView_currentWifi);
+        btReset = view.findViewById(R.id.button_reset_log);
     }
 
     /* Reset logCat */

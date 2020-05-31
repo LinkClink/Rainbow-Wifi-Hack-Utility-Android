@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_background_fragment"
+    android:orientation="vertical"
+    android:theme="@style/FragmentsTheme"
+    tools:context="TestFragment.TestFragment">
+
+    <TextView
+        android:id="@+id/textView_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Test" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_test_stop"
+            style="@style/ButtonTheme4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/Stop" />
+
+        <Button
+            android:id="@+id/button_test"
+            style="@style/ButtonTheme4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Test1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Password" />
+
+        <EditText
+            android:id="@+id/editText_password0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/Password1"
+            android:inputType="text"
+            android:textColor="#000000"
+            android:textColorHint="#555555" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Number" />
+
+        <EditText
+            android:id="@+id/editText_test_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/Number0"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#000000"
+            android:textColorHint="#494949" />
+
+    </LinearLayout>
+
+</LinearLayout>

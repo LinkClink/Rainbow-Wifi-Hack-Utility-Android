@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 import androidx.fragment.app.FragmentManager;
+import logic.SetLog;
 
 public class BruteProcess extends AsyncTask {
 
@@ -32,15 +33,6 @@ public class BruteProcess extends AsyncTask {
     private FragmentManager fragmentManager;
 
     private byte flagBrute = 0;
-
-    public static byte getStopBrute() {
-        return flagStopBrute;
-    }
-
-    static void setStopBrute() {
-        BruteProcess.flagStopBrute = (byte) 1;
-    }
-
     private static byte flagStopBrute = 0;
 
     private SetLog setLog;
@@ -56,11 +48,8 @@ public class BruteProcess extends AsyncTask {
     }
 
     private void Brute() {
-        parsePassword = "";
         for (int i = 0; i < passwordList.size(); i++) {
-
             if (flagBrute == 0) {
-
                 flagBrute = 1;
                 wifiManager.removeNetwork(netId);
                 /* Config */
@@ -69,14 +58,12 @@ public class BruteProcess extends AsyncTask {
                 TryConnect();
                 /* Thread */
                 SleepAfter();
-
                 publishProgress(i);
-
+                /* Success brute */
                 if (CheckSuccessConnect()) {
                     parsePassword = passwordList.get(i);
                     break;
                 }
-
                 /* Stop brute */
                 if (flagStopBrute == 1)
                     break;
@@ -111,6 +98,7 @@ public class BruteProcess extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
         flagStopBrute = 0;
+        parsePassword = "";
         Brute();
         return null;
     }
@@ -144,6 +132,13 @@ public class BruteProcess extends AsyncTask {
     private void SuccessParsePassword() {
         setLog.SetLogResult("Pass to WIF:" + currentBruteWifiSSID + "Pass: " + parsePassword);
         setLog.SetLogGoodResults("WIFI: " + currentBruteWifiSSID + " Pass: " + parsePassword);
+    }
+
+    public static byte getStopBrute() {
+        return flagStopBrute;
+    }
+    static void setStopBrute() {
+        BruteProcess.flagStopBrute = (byte) 1;
     }
 }
 

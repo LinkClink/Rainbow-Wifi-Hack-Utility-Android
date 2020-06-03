@@ -100,7 +100,6 @@ public class TestProcess extends AsyncTask {
         flagStop = 0;
 
         while (currentThread < maxThread & flagBrute == 0) {
-
             flagTryConnection = 0;
             for (int a = 0; a < 3; a++) {
                 for (int i = 0; i < passwordList.size(); i++) {

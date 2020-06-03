@@ -34,7 +34,7 @@
     <string name="ThreadValue">100</string>
 
     <!-- Test fragment -->
-    <string name="Test">Test:</string>
+    <string name="Test">Test optimal thread:</string>
     <string name="Test1">Test</string>
     <string name="Password">Password:</string>
     <string name="Password1">Password</string>

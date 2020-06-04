@@ -74,10 +74,12 @@ public class TestProcess extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        setLog.SetLogResult("Finish test optimal thread:" + optimalThread);
-        SetTestThreadResult(optimalThread);
-        BruteFragment bruteFragment = new BruteFragment();
-        bruteFragment.setFlagCurrentBrute((byte) 0);
+        if(flagStop != 1) {
+            setLog.SetLogResult("Finish test optimal thread:" + optimalThread);
+            SetTestThreadResult(optimalThread);
+            BruteFragment bruteFragment = new BruteFragment();
+            bruteFragment.setFlagCurrentBrute((byte) 0);
+        } else setLog.SetLogResult(" Optimal thread will not be find");
     }
 
     @Override
@@ -90,6 +92,7 @@ public class TestProcess extends AsyncTask {
     private void TestOptimalThread() {
         setLog = new SetLog(fragmentManager);
         passwordList.clear();
+        flagStop = 0;
         GeneratedPasswordList();
         TestBrute();
     }
@@ -97,7 +100,6 @@ public class TestProcess extends AsyncTask {
     /* Main brute for test */
     private void TestBrute() {
         currentThread = 50;
-        flagStop = 0;
 
         while (currentThread < maxThread & flagBrute == 0) {
             flagTryConnection = 0;
@@ -127,6 +129,8 @@ public class TestProcess extends AsyncTask {
                 }
             }
             if (flagTryConnection == 3 | flagStop == 1)
+                break;
+            if(flagStop != 0)
                 break;
             currentThread += 50;
         }

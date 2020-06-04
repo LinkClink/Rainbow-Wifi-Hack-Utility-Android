@@ -78,10 +78,10 @@ public class TestFragment extends Fragment {
     /* Components layout initialisation and objects */
     private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.test_thread_fragment, container, false);
-        buttonTest = (Button) view.findViewById(R.id.button_test);
-        buttonStop = (Button) view.findViewById(R.id.button_test_stop);
-        editTextPassword = (EditText) view.findViewById(R.id.editText_password0);
-        editTextCount = (EditText) view.findViewById(R.id.editText_test_count);
+        buttonTest = view.findViewById(R.id.button_test);
+        buttonStop = view.findViewById(R.id.button_test_stop);
+        editTextPassword = view.findViewById(R.id.editText_password0);
+        editTextCount = view.findViewById(R.id.editText_test_count);
         bruteFragment = new BruteFragment();
         saveSharedPreferences = new SaveSharedPreferences(requireContext());
     }

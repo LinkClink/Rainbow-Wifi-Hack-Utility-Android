@@ -6,7 +6,7 @@
 <img src="https://sun9-49.userapi.com/cHt-5NnzheOuuAQZj6i4aEOKdLsOOewFHZs_HQ/u1qMG8XDrAY.jpg" width="900">.
 
 # Getting Started:
-* You can open this project in your Android Studio also download release.apk and install on your smartphone.
+* You can open this project in your Android Studio also download **release.apk** and install on your smartphone.
 * Also download app [Download](https://drive.google.com/file/d/1_6N9YYFhY-bv-hHmd6UA_x-tT_gT5zUF/view?usp=sharing)
 
 * PS.(I apologize in advance the program is currently optimized well only for phones with a resolution of 1980x1020, if you have problems write me, I work with that, thanks)

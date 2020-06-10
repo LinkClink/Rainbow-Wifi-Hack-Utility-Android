@@ -38,12 +38,6 @@
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/stop_Cancel"
-            android:name="AnotherFragments.StopCancelFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/password"
             android:name="AnotherFragments.PasswordListFragment"
             android:layout_width="match_parent"

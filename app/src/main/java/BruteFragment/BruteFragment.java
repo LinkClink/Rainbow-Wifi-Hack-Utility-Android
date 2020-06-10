@@ -33,6 +33,7 @@ public class BruteFragment extends Fragment {
     private View view;
 
     private Button buttonBrute;
+    private Button buttonStop;
     private SeekBar seekBarThread;
     private TextView textViewThreadValue;
 
@@ -64,6 +65,13 @@ public class BruteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 BruteMainCheck();
+            }
+        });
+
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StopBrute();
             }
         });
 
@@ -132,6 +140,7 @@ public class BruteFragment extends Fragment {
     private void InitialisationComponentsPlus() {
         view = inflater.inflate(R.layout.brute_fragment, container, false);
         buttonBrute = view.findViewById(R.id.button_brute);
+        buttonStop = view.findViewById(R.id.button_brute_stop);
         seekBarThread = view.findViewById(R.id.seekBar_thread);
         textViewThreadValue = view.findViewById(R.id.textView_threadValue);
         setLog = new SetLog(getParentFragmentManager());
@@ -188,5 +197,17 @@ public class BruteFragment extends Fragment {
         seekBarThread.setProgress(saveSharedPreferences.GetThreadValue());
         textViewThreadValue.setText(String.valueOf(saveSharedPreferences.GetThreadValue()));
         threadValue = saveSharedPreferences.GetThreadValue();
+    }
+
+    /* Stop current brute process */
+    private void StopBrute() {
+        Bundle bundle = new Bundle();
+        if (flagCurrentBrute == 1) {
+            bundle = new Bundle();
+            bundle.putString("log", "Stopping current process...");
+            getParentFragmentManager().setFragmentResult("log", bundle);
+            flagCurrentBrute = 0;
+            BruteProcess.setStopBrute();
+        } else ShowToast.showToast(getContext(), "Don't stop");
     }
 }

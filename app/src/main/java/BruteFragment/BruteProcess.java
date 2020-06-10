@@ -107,6 +107,7 @@ public class BruteProcess extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         setLog.SetLogResult("Finish brute wifi: " + currentBruteWifiSSID);
+        setLog.SetLogCurrentProgress("");
         if (!parsePassword.equals(""))
             SuccessParsePassword();
         BruteFragment bruteFragment = new BruteFragment();
@@ -117,7 +118,7 @@ public class BruteProcess extends AsyncTask {
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
         setLog = new SetLog(fragmentManager);
-        setLog.SetLogBruteProgress("Brute progress " + values[0].toString() + " with < " + passwordList.size() + " passwords \n");
+        setLog.SetLogCurrentProgress("Brute progress " + values[0].toString() + " with < " + passwordList.size() + " passwords \n");
     }
 
     /* Check success connection */

@@ -33,7 +33,7 @@ public class TestProcess extends AsyncTask {
     private int netId;
     private int testCount;
 
-    private Bundle bundle;
+    private Bundle bundle = new Bundle();
 
     private byte flagBrute = 0;
     private static byte flagStop = 0;
@@ -67,6 +67,8 @@ public class TestProcess extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        bundle.putInt("setProgressBarMax", 3100);
+        fragmentManager.setFragmentResult("setProgressBarMax", bundle);
         TestOptimalThread();
         return null;
     }
@@ -74,23 +76,31 @@ public class TestProcess extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        if(flagStop != 1) {
+        BruteFragment bruteFragment = new BruteFragment();
+        bruteFragment.setFlagCurrentBrute((byte) 0);
+        bundle.putInt("resetProgressBar", 0);
+        fragmentManager.setFragmentResult("resetProgressBar", bundle);
+        setLog.SetLogCurrentProgress("");
+        if (flagStop != 1) {
             setLog.SetLogResult("Finish test optimal thread:" + optimalThread);
+            setLog.SetLogCurrentProgress("");
             SetTestThreadResult(optimalThread);
-            BruteFragment bruteFragment = new BruteFragment();
-            bruteFragment.setFlagCurrentBrute((byte) 0);
         } else setLog.SetLogResult(" Optimal thread will not be find");
     }
 
     @Override
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
-        setLog.SetLogBruteProgress("Test progress: " + values[0].toString() + " with < " + maxThread + " thread " + "try connect " + testCount);
+        bundle.putInt("setProgressBar", Integer.parseInt(values[0].toString()));
+        fragmentManager.setFragmentResult("setProgressBar", bundle);
+        setLog.SetLogCurrentProgress("Test progress: " + values[0].toString() + " with < " + maxThread + " thread " + "try connect " + testCount);
     }
 
     /* Main */
     private void TestOptimalThread() {
         setLog = new SetLog(fragmentManager);
+        setLog.SetLogCurrentWifi(currentBruteWifiSSID);
+        setLog.SetLogResult("Start test optimal thread");
         passwordList.clear();
         flagStop = 0;
         GeneratedPasswordList();
@@ -130,7 +140,7 @@ public class TestProcess extends AsyncTask {
             }
             if (flagTryConnection == 3 | flagStop == 1)
                 break;
-            if(flagStop != 0)
+            if (flagStop != 0)
                 break;
             currentThread += 50;
         }

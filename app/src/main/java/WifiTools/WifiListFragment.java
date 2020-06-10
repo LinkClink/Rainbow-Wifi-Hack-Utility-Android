@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.linkclink.gfr.R;
 
@@ -29,6 +30,8 @@ public class WifiListFragment extends Fragment {
 
     private Button btRefresh;
     private ListView lwWifiList;
+
+    private ProgressBar progressBarWifiList;
 
     private LayoutInflater inflater;
     private ViewGroup container;
@@ -55,10 +58,10 @@ public class WifiListFragment extends Fragment {
         btRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(CheckPermission())
-                if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
-                    ShowToast.showToast(getContext(), "Please disable HotSpot:");
-                else Refresh();
+                if (CheckPermission())
+                    if (CheckHotSpot.CheckHotSpotEnabled(wifiManager))
+                        ShowToast.showToast(getContext(), "Please disable HotSpot:");
+                    else Refresh();
             }
         });
 
@@ -75,9 +78,10 @@ public class WifiListFragment extends Fragment {
 
     /* Components layout initialisation */
     private void InitialisationComponents() {
-        view = inflater.inflate(R.layout.wifi_list_fragment, container, false);
+        view = inflater.inflate(R.layout.wifi_list_fragment1, container, false);
         btRefresh = view.findViewById(R.id.button_refresh);
         lwWifiList = view.findViewById(R.id.listview_wifi_list);
+        progressBarWifiList = view.findViewById(R.id.progressBar);
     }
 
     /* Unregister wifi-receiver if app state pause */
@@ -90,7 +94,7 @@ public class WifiListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        wifiReceiver = new WifiReceiver(wifiManager, lwWifiList);
+        wifiReceiver = new WifiReceiver(wifiManager, lwWifiList,progressBarWifiList);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         requireActivity().registerReceiver(wifiReceiver, intentFilter);
@@ -99,6 +103,7 @@ public class WifiListFragment extends Fragment {
     /* Refresh wifi list */
     private void Refresh() {
         lwWifiList.setAdapter(null);
+        progressBarWifiList.setVisibility(View.VISIBLE);
         wifiManager.startScan();
         ShowToast.showToast(getContext(), "Refresh:");
     }

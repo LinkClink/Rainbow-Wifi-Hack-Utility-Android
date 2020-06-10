@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.linkclink.gfr.R;
@@ -21,6 +22,8 @@ public class LogFragment extends Fragment {
     private TextView textViewGodResults;
     private TextView textViewCurrentWifi;
     private TextView textViewCurrentProcess;
+
+    private ProgressBar progressBarLog;
 
     private Button btReset;
 
@@ -66,6 +69,28 @@ public class LogFragment extends Fragment {
             }
         });
 
+        getParentFragmentManager().setFragmentResultListener("setProgressBarMax", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                progressBarLog.setMax(result.getInt("setProgressBarMax"));
+            }
+        });
+
+        getParentFragmentManager().setFragmentResultListener("resetProgressBar", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                progressBarLog.setProgress(0);
+                progressBarLog.setMax(0);
+            }
+        });
+
+        getParentFragmentManager().setFragmentResultListener("setProgressBar", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                progressBarLog.setProgress(result.getInt("setProgressBar"));
+            }
+        });
+
         btReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +108,7 @@ public class LogFragment extends Fragment {
         textViewGodResults = view.findViewById(R.id.textView_GodResults);
         textViewCurrentWifi = view.findViewById(R.id.textView_currentWifi);
         textViewCurrentProcess = view.findViewById(R.id.textView_current_process);
+        progressBarLog = view.findViewById(R.id.progressBar_log);
         btReset = view.findViewById(R.id.button_reset_log);
     }
 

@@ -35,7 +35,7 @@ public class PasswordListFragment extends Fragment {
 
     private String passUri;
 
-    private Bundle bundle;
+    private Bundle bundle = new Bundle();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,7 +101,6 @@ public class PasswordListFragment extends Fragment {
     private void ResetPasswordList() {
         BruteFragment bruteFragment = new BruteFragment();
         if (bruteFragment.getFlagCurrentBrute() == 0) {
-            bundle = new Bundle();
             getParentFragmentManager().setFragmentResult("resetPasswordList", bundle);
             textViewPasswordList.setText("");
         } else ShowToast.showToast(requireContext(), "Error: don't reset when brute start");

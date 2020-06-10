@@ -33,7 +33,7 @@ public class TestProcess extends AsyncTask {
     private int netId;
     private int testCount;
 
-    private Bundle bundle;
+    private Bundle bundle = new Bundle();
 
     private byte flagBrute = 0;
     private static byte flagStop = 0;
@@ -67,6 +67,8 @@ public class TestProcess extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        bundle.putInt("setProgressBarMax", 3100);
+        fragmentManager.setFragmentResult("setProgressBarMax", bundle);
         TestOptimalThread();
         return null;
     }
@@ -76,6 +78,8 @@ public class TestProcess extends AsyncTask {
         super.onPostExecute(o);
         BruteFragment bruteFragment = new BruteFragment();
         bruteFragment.setFlagCurrentBrute((byte) 0);
+        bundle.putInt("resetProgressBar", 0);
+        fragmentManager.setFragmentResult("resetProgressBar", bundle);
         setLog.SetLogCurrentProgress("");
         if (flagStop != 1) {
             setLog.SetLogResult("Finish test optimal thread:" + optimalThread);
@@ -87,6 +91,8 @@ public class TestProcess extends AsyncTask {
     @Override
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
+        bundle.putInt("setProgressBar", Integer.parseInt(values[0].toString()));
+        fragmentManager.setFragmentResult("setProgressBar", bundle);
         setLog.SetLogCurrentProgress("Test progress: " + values[0].toString() + " with < " + maxThread + " thread " + "try connect " + testCount);
     }
 

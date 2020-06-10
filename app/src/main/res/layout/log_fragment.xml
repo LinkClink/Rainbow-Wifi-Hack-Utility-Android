@@ -38,13 +38,21 @@
             android:layout_height="wrap_content"
             android:text="@string/Process" />
 
-        <TextView
-            android:id="@+id/textView_current_process"
+        <ProgressBar
+            android:id="@+id/progressBar_log"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_textview_background_0" />
+            android:progressBackgroundTint="#575757"
+            android:progressTint="#F44336" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_current_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_textview_background_0" />
 
     <TextView
         android:id="@+id/textView_logF1"

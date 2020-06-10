@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +35,8 @@ public class BruteProcess extends AsyncTask {
 
     private byte flagBrute = 0;
     private static byte flagStopBrute = 0;
+
+    private Bundle bundle = new Bundle();
 
     private SetLog setLog;
 
@@ -97,6 +100,8 @@ public class BruteProcess extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        bundle.putInt("setProgressBarMax",passwordList.size());
+        fragmentManager.setFragmentResult("setProgressBarMax",bundle);
         flagStopBrute = 0;
         parsePassword = "";
         Brute();
@@ -107,6 +112,8 @@ public class BruteProcess extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         setLog.SetLogResult("Finish brute wifi: " + currentBruteWifiSSID);
+        bundle.putInt("resetProgressBar",0);
+        fragmentManager.setFragmentResult("resetProgressBar",bundle);
         setLog.SetLogCurrentProgress("");
         if (!parsePassword.equals(""))
             SuccessParsePassword();
@@ -118,6 +125,8 @@ public class BruteProcess extends AsyncTask {
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
         setLog = new SetLog(fragmentManager);
+        bundle.putInt("setProgressBar",Integer.parseInt(values[0].toString()));
+        fragmentManager.setFragmentResult("setProgressBar",bundle);
         setLog.SetLogCurrentProgress("Brute progress " + values[0].toString() + " with < " + passwordList.size() + " passwords \n");
     }
 

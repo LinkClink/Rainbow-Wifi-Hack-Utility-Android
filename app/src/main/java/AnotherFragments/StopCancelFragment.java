@@ -17,7 +17,7 @@ import com.linkclink.gfr.R;
 
 public class StopCancelFragment extends Fragment {
 
-    private Bundle bundle;
+    private Bundle bundle = new Bundle();
 
     private Button btStop;
 

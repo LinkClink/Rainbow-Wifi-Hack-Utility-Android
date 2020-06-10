@@ -178,6 +178,10 @@ public class BruteFragment extends Fragment {
         setLog.SetLogResult("Brute/Start brute wifi: " + currentBruteWifiSSID + " thread: " + threadValue);
         setLog.SetLogCurrentWifi(currentBruteWifiSSID);
 
+        Bundle bundle = new Bundle();
+        bundle.putInt("setProgressBarMax",passwordList.size());
+        getParentFragmentManager().setFragmentResult("setProgressBarMax",bundle);
+
         BruteProcess bruteProcess = new BruteProcess(passwordList, wifiManager, currentBruteWifiSSID,
                 getParentFragmentManager(), requireActivity(), threadValue);
 
@@ -203,7 +207,6 @@ public class BruteFragment extends Fragment {
     private void StopBrute() {
         Bundle bundle = new Bundle();
         if (flagCurrentBrute == 1) {
-            bundle = new Bundle();
             bundle.putString("log", "Stopping current process...");
             getParentFragmentManager().setFragmentResult("log", bundle);
             flagCurrentBrute = 0;

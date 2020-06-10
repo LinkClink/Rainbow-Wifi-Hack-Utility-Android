@@ -20,6 +20,7 @@ public class LogFragment extends Fragment {
     private TextView textViewLogCat;
     private TextView textViewGodResults;
     private TextView textViewCurrentWifi;
+    private TextView textViewCurrentProcess;
 
     private Button btReset;
 
@@ -81,6 +82,7 @@ public class LogFragment extends Fragment {
         textViewLogCat = view.findViewById(R.id.textView_logCat);
         textViewGodResults = view.findViewById(R.id.textView_GodResults);
         textViewCurrentWifi = view.findViewById(R.id.textView_currentWifi);
+        textViewCurrentProcess = view.findViewById(R.id.textView_current_process);
         btReset = view.findViewById(R.id.button_reset_log);
     }
 
@@ -106,6 +108,6 @@ public class LogFragment extends Fragment {
 
     /* Set brute process */
     private void SetLogBruteProgress(String progress) {
-        textViewLogCat.setText(String.format("%s%s", allLogResults, progress));
+        textViewCurrentProcess.setText(progress);
     }
 }

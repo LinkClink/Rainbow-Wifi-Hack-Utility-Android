@@ -6,6 +6,7 @@
     <string name="LogCat">LogCat:</string>
     <string name="GodResults">God Results:</string>
     <string name="ResetLog">Reset</string>
+    <string name="Process">Process:</string>
 
     <!-- Wifi list fragment -->
     <string name="WifiList">Wifi List:</string>

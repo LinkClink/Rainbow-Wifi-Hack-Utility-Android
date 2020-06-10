@@ -35,7 +35,7 @@ public class SetLog {
     }
 
     /* Set-show actual brute-test progress */
-    public void SetLogBruteProgress(String text) {
+    public void SetLogCurrentProgress(String text) {
         bundle = new Bundle();
         bundle.putString("progressLog", text);
         fragmentManager.setFragmentResult("progressLog", bundle);

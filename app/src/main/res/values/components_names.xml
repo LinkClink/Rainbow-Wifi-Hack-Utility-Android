@@ -16,6 +16,8 @@
     <string name="PasswordList">Password List:</string>
     <string name="Add">Add</string>
     <string name="Reset">Reset</string>
+    <string name="Size">Size:</string>
+    <string name="Zero">0</string>
 
     <!--Wifi on-off -->
     <string name="WifiSetting">Wifi:</string>

@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import logic.ShowToast;
 
 public class PasswordListFragment extends Fragment {
@@ -30,10 +31,13 @@ public class PasswordListFragment extends Fragment {
     private Button btReset;
 
     private TextView textViewPasswordList;
+    private TextView textViewListSize;
 
     private ActivityResultLauncher<String> mGetContent;
 
     private String passUri;
+
+    private int listSize = 0;
 
     private Bundle bundle = new Bundle();
 
@@ -56,6 +60,15 @@ public class PasswordListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ResetPasswordList();
+            }
+        });
+
+        /* Get password list-size added */
+        getParentFragmentManager().setFragmentResultListener("updatePasswordListSize", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                listSize += result.getInt("updatePasswordListSize");
+                textViewListSize.setText(String.valueOf(listSize));
             }
         });
 
@@ -84,6 +97,7 @@ public class PasswordListFragment extends Fragment {
         btAdd = view.findViewById(R.id.button_add_password);
         btReset = view.findViewById(R.id.button_reset_password);
         textViewPasswordList = view.findViewById(R.id.textView_passwords_list);
+        textViewListSize = view.findViewById(R.id.textView4_pass_list_size);
     }
 
     /* Get file path */
@@ -103,6 +117,8 @@ public class PasswordListFragment extends Fragment {
         if (bruteFragment.getFlagCurrentBrute() == 0) {
             getParentFragmentManager().setFragmentResult("resetPasswordList", bundle);
             textViewPasswordList.setText("");
+            listSize = 0;
+            textViewListSize.setText("0");
         } else ShowToast.showToast(requireContext(), "Error: don't reset when brute start");
     }
 }

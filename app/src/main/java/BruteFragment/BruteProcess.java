@@ -100,8 +100,8 @@ public class BruteProcess extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        bundle.putInt("setProgressBarMax",passwordList.size());
-        fragmentManager.setFragmentResult("setProgressBarMax",bundle);
+        bundle.putInt("setProgressBarMax", passwordList.size());
+        fragmentManager.setFragmentResult("setProgressBarMax", bundle);
         flagStopBrute = 0;
         parsePassword = "";
         Brute();
@@ -112,8 +112,9 @@ public class BruteProcess extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         setLog.SetLogResult("Finish brute wifi: " + currentBruteWifiSSID);
-        bundle.putInt("resetProgressBar",0);
-        fragmentManager.setFragmentResult("resetProgressBar",bundle);
+        setLog.SetLogCurrentWifi("");
+        bundle.putInt("resetProgressBar", 0);
+        fragmentManager.setFragmentResult("resetProgressBar", bundle);
         setLog.SetLogCurrentProgress("");
         if (!parsePassword.equals(""))
             SuccessParsePassword();
@@ -125,8 +126,8 @@ public class BruteProcess extends AsyncTask {
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
         setLog = new SetLog(fragmentManager);
-        bundle.putInt("setProgressBar",Integer.parseInt(values[0].toString()));
-        fragmentManager.setFragmentResult("setProgressBar",bundle);
+        bundle.putInt("setProgressBar", Integer.parseInt(values[0].toString()));
+        fragmentManager.setFragmentResult("setProgressBar", bundle);
         setLog.SetLogCurrentProgress("Brute progress " + values[0].toString() + " with < " + passwordList.size() + " passwords \n");
     }
 
@@ -147,6 +148,7 @@ public class BruteProcess extends AsyncTask {
     public static byte getStopBrute() {
         return flagStopBrute;
     }
+
     static void setStopBrute() {
         BruteProcess.flagStopBrute = (byte) 1;
     }

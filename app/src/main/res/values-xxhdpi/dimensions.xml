@@ -15,4 +15,8 @@
     <!-- Brute fragment -->
     <dimen name="SeekBarWeight0">250dp</dimen>
 
+    <!-- Wifi adapter -->
+    <dimen name="sizeTextViewName">18sp</dimen>
+    <dimen name="sizeTextViewDetail">14sp</dimen>
+
 </resources>

@@ -17,6 +17,11 @@
         <item name="fontFamily">@font/delius_unicase</item>
     </style>
 
+    <!-- Wifi-list adapter style -->
+    <style name="WifiListTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="fontFamily">@font/delius_unicase</item>
+    </style>
+
     <!-- Button custom 0 -->
     <style name="ButtonTheme0" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:background">@color/colorButtonBackground</item>

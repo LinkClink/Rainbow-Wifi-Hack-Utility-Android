@@ -19,10 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.linkclink.gfr.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WifiListFragment extends Fragment {
 
@@ -40,6 +44,18 @@ public class WifiListFragment extends Fragment {
     private WifiReceiver wifiReceiver;
 
     private String currentWifiSelected;
+
+
+    public static ArrayList<String> getWifiListNames() {
+        return wifiListNames;
+    }
+
+    public static void setWifiListNames(ArrayList<String> wifiListNames) {
+        WifiListFragment.wifiListNames = wifiListNames;
+    }
+
+    private static ArrayList<String> wifiListNames;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +84,7 @@ public class WifiListFragment extends Fragment {
         lwWifiList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                currentWifiSelected = (String) lwWifiList.getItemAtPosition(i);
+                currentWifiSelected = wifiListNames.get(i);
                 SetCurrentWifiBrute(currentWifiSelected);
             }
         });

@@ -16,6 +16,9 @@
     <string name="PasswordList">Password List:</string>
     <string name="Add">Add</string>
     <string name="Reset">Reset</string>
+    <string name="Size">Size:</string>
+    <string name="Zero">0</string>
+    <string name="ListValidate">List Validate</string>
 
     <!--Wifi on-off -->
     <string name="WifiSetting">Wifi:</string>
@@ -41,5 +44,10 @@
     <string name="Password1">Password</string>
     <string name="Number">Number:</string>
     <string name="Number0">3</string>
+
+    <!-- Wifi-list adapter -->
+    <string name="Name">Name</string>
+    <string name="Mac">Mac: </string>
+    <string name="Details">Details</string>
 
 </resources>

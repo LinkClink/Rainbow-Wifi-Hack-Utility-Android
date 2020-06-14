@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimenListViewHeight"
                 android:choiceMode="singleChoice"
+                android:divider="#000"
                 android:listSelector="@drawable/selector_listview_0">
 
             </ListView>

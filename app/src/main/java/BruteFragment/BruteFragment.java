@@ -113,12 +113,12 @@ public class BruteFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 try {
                     size = updatePasswordList.UpdateList(result.getString("passwordUri"));
-                    setLog.SetLogResult("Update/List Success added " + size + " passwords");
+                    setLog.SetLogResult("Update/List Success added " + passwordList.size() + " passwords and delete " + (size - passwordList.size()));
                 } catch (IOException e) {
                     ShowToast.showToast(getContext(), "Error " + e.getMessage());
                 }
-                bundle.putInt("updatePasswordListSize",size);
-                getParentFragmentManager().setFragmentResult("updatePasswordListSize",bundle);
+                bundle.putInt("updatePasswordListSize", passwordList.size());
+                getParentFragmentManager().setFragmentResult("updatePasswordListSize", bundle);
             }
         });
 
@@ -184,8 +184,8 @@ public class BruteFragment extends Fragment {
         setLog.SetLogCurrentWifi(currentBruteWifiSSID);
 
         Bundle bundle = new Bundle();
-        bundle.putInt("setProgressBarMax",passwordList.size());
-        getParentFragmentManager().setFragmentResult("setProgressBarMax",bundle);
+        bundle.putInt("setProgressBarMax", passwordList.size());
+        getParentFragmentManager().setFragmentResult("setProgressBarMax", bundle);
 
         BruteProcess bruteProcess = new BruteProcess(passwordList, wifiManager, currentBruteWifiSSID,
                 getParentFragmentManager(), requireActivity(), threadValue);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -65,7 +66,10 @@
             android:layout_width="@dimen/SeekBarWeight0"
             android:layout_height="wrap_content"
             android:max="3000"
-            android:progress="30" />
+            android:progress="30"
+            android:progressBackgroundTint="#FF9800"
+            android:progressTint="#F44336"
+            android:thumbTint="#FFEB3B" />
 
         <TextView
             android:id="@+id/textView_threadValue"

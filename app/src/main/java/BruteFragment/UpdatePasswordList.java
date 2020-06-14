@@ -29,7 +29,10 @@ class UpdatePasswordList {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
         while ((line = bufferedReader.readLine()) != null) {
-            passwordList.add(line);
+            /* Validate password list */
+            if (line.length() < 8)
+                passwordList.add(line);
+
             fileSize++;
         }
         inputStream.close();

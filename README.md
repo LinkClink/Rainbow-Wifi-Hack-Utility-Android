@@ -15,10 +15,10 @@
 * Android Studio [Download](https://developer.android.com/studio)
 
 # Running the tests:
-.<img src="https://sun9-65.userapi.com/k6t6M3Jlnesq5NQIUFjD8FU8ASFe53Qf-iJ9oA/3J-4zh0pgMA.jpg" width="350">
-<img src="https://sun9-72.userapi.com/6nbH7ScvP7IqkXC9Sn9AYxIQhQIWCqM-GMmGWA/dBzGBay-pzg.jpg" width="350">
-<img src="https://sun9-4.userapi.com/SXJvOrHmp8MmvhimULdESxvb8osQ1uJzONNAHw/Z-oVrcLzpqw.jpg" width="350">
-<img src="https://sun9-4.userapi.com/zIBTZ-HYu2fsv8ZYdH4KMlVSpbcDzmX9JJ5W6A/A95AwAWNSJs.jpg" width="350">
+.<img src="https://sun9-70.userapi.com/k504UbSSau4_52Eoqg8_qWpjhA9UWE3RW1vHdA/WVy8VD-zWA4.jpg" width="350">
+<img src="https://sun9-63.userapi.com/YV34SxcQeBuO1ybhNiIpD2r6BrpWBQPIapXUUg/Sb0AtLTI-IM.jpg" width="350">
+<img src="https://sun9-8.userapi.com/0rW3E-InX22GlKjhqQ6enUPaCtJJpqh9HAhjpg/eUenMpQl5gA.jpg" width="350">
+<img src="https://sun9-3.userapi.com/LSfWyu1SLBLkee6ZTNJh4EFN32B3EUaO6Lzdyg/KzKHzFZr3GQ.jpg" width="350">
 
 
 # Built With:

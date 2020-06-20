@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/DialogFragmentSettings"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/HideMenu"
+        android:textSize="24sp" />
+
+    <Switch
+        android:id="@+id/switch_wifi_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="HideFragments"
+        android:text="@string/WifiListD"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switch_wifi_on_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="HideFragments"
+        android:text="@string/WifiOnOfD"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switch_brute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="HideFragments"
+        android:text="@string/Brute"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switch_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="HideFragments"
+        android:text="@string/Test1"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switch_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="HideFragments"
+        android:text="@string/Password1"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/switch_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:onClick="HideFragments"
+        android:text="@string/LogD"
+        android:textSize="18sp" />
+
+</LinearLayout>

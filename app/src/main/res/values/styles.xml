@@ -17,6 +17,13 @@
         <item name="fontFamily">@font/delius_unicase</item>
     </style>
 
+    <!-- Dialog style -->
+    <style name="DialogFragmentSettings" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:layout_margin">4dp</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!-- Wifi-list adapter style -->
     <style name="WifiListTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="fontFamily">@font/delius_unicase</item>

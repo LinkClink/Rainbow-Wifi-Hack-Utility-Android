@@ -50,4 +50,10 @@
     <string name="Mac">Mac: </string>
     <string name="Details">Details</string>
 
+    <!-- Dialog fragment -->
+    <string name="HideMenu">Hide menu:</string>
+    <string name="WifiListD">Wifi list</string>
+    <string name="WifiOnOfD">Wifi On-Off</string>
+    <string name="LogD">Log</string>
+
 </resources>

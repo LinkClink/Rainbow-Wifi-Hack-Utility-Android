@@ -56,5 +56,5 @@
         android:clickable="true"
         android:focusable="true"
         android:onClick="OpenFragmentSettingsDialog"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@drawable/ic_settings_black_24dp" />
 </RelativeLayout>

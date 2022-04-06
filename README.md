@@ -1,3 +1,4 @@
+# The application was created solely for educational purposes!
 
 # Project Title:
 * Rainbow Wifi Hack Utility (Example)
